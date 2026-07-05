@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HydroTrace — Smart Water Accountability System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="favicon.png" type="image/png" />
+</head>
+
+<body>
+
+    <!-- ==================== NAV ==================== -->
+    <nav>
+        <div class="nav-logo">
+            <div class="drop"></div>
+            HydroTrace
+        </div>
+
+        <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home" class="nav-home">🏠 Home</a></li>
+            <li class="dropdown">
+                <a href="#abstract">Abstract</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#impact">Impact</a></li>
+                    <li><a href="#innovations">Innovations</a></li>
+                </ul>
+            </li>
+            <li><a href="#components">Components</a></li>
+            <li><a href="#methodology">Methodology</a></li>
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#data">Data</a></li>
+            <li><a href="#controls">Controls</a></li>
+            <li><a href="#future">Future</a></li>
+            <li class="dropdown">
+                <a href="#">More</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#deployment">Deployment</a></li>
+                </ul>
+            </li>
+            <li><a href="https://canva.link/rkjgd3pw25qwjg8" target="_blank" class="nav-cta">View Presentation</a></li>
+            <li>
+                <div class="theme-toggle" id="themeToggle" role="button" tabindex="0" aria-label="Toggle theme">
+                    <span class="icon-sun"><i class="fas fa-sun"></i></span>
+                    <span class="icon-moon"><i class="fas fa-moon"></i></span>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- ==================== HERO ==================== -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="ripple-container">
+            <div class="ripple"></div>
+            <div class="ripple"></div>
+            <div class="ripple"></div>
+            <div class="ripple"></div>
+            <div class="ripple-core"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-eyebrow fade-up">Real-Time Water Accountability</div>
+            <h1 class="hero-title fade-up delay-1">
+                Stop the <span class="accent">invisible</span><br />water drain
+            </h1>
+            <p class="hero-desc fade-up delay-2">
+                HydroTrace is an IoT system that maps every milliliter of water waste to individual user profiles —
+                turning unmonitored dispensing stations into accountable, data-driven smart utilities.
+            </p>
+            <div class="hero-actions fade-up delay-3">
+                <a href="#dashboard" class="btn-primary">See Live Dashboard →</a>
+                <a href="#abstract" class="btn-secondary">Read Abstract</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== STATS STRIP ==================== -->
+    <div class="stats-strip">
+        <div class="stat-item">
+            <span class="stat-num">2–10 L</span>
+            <div class="stat-label">Daily waste per station</div>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num">1 mL</span>
+            <div class="stat-label">Measurement precision</div>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num">70–80%</span>
+            <div class="stat-label">Projected runoff reduction</div>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num">24/7</span>
+            <div class="stat-label">Cloud monitoring</div>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num">SDG 6</span>
+            <div class="stat-label">UN Sustainability Aligned</div>
+        </div>
+    </div>
+
+    <!-- ==================== ABSTRACT ==================== -->
+    <section id="abstract" class="section-alt">
+        <div class="section-eyebrow">Overview</div>
+        <h2 class="section-title">Abstract</h2>
+        <p class="section-sub" style="max-width:700px;">
+            HydroTrace is a dual-microcontroller IoT system that brings per-user accountability to public water
+            dispensing stations. By combining RFID authentication, high-precision flow sensing, and wastewater
+            hydrostatic measurement, the system captures every milliliter of dispensed and wasted water — linking it
+            directly to individual user profiles in the cloud.
+        </p>
+        <div class="abstract-tabs">
+            <div class="tab-nav" id="tabNav">
+                <button class="tab-btn active" data-tab="problems">Problems</button>
+                <button class="tab-btn" data-tab="disadvantages">Disadvantages</button>
+                <button class="tab-btn" data-tab="impact">Impact</button>
+                <button class="tab-btn" data-tab="audience">Target Audience</button>
+            </div>
+            <div class="tab-panel active" id="panel-problems">
+                <h4>Why This Matters</h4>
+                <p>At institutional scale, micro-wastage at water dispensing stations accumulates into thousands of
+                    liters of purified, energy-intensive water lost to drains each week. Traditional systems offer no
+                    visibility into who is wasting water, when, or how much.</p>
+                <ul>
+                    <li><strong>No user accountability</strong> — water waste is anonymous and unlinked to individuals.
+                    </li>
+                    <li><strong>Passive infrastructure</strong> — conventional dispensers only detect major tank-level
+                        changes, not small but frequent overflows.</li>
+                    <li><strong>Behavioral blindness</strong> — without real-time feedback, users are unaware of their
+                        consumption patterns.</li>
+                    <li><strong>Data poverty</strong> — facility managers have no empirical data to drive conservation
+                        policies or ESG reporting.</li>
+                </ul>
+            </div>
+            <div class="tab-panel" id="panel-disadvantages">
+                <h4>Limitations of Current Approaches</h4>
+                <p>Existing water monitoring solutions fall short in several critical dimensions — from measurement
+                    granularity to behavioral integration.</p>
+                <ul>
+                    <li><strong>Coarse measurement</strong> — float switches and tank-level sensors have ±5–10% error
+                        margins, missing small but cumulative waste.</li>
+                    <li><strong>No user-level tracking</strong> — most systems measure aggregate flow, not per-user
+                        consumption, making it impossible to identify high-waste individuals.</li>
+                    <li><strong>No feedback loop</strong> — users receive no visual or behavioral feedback, so wasteful
+                        habits persist.</li>
+                    <li><strong>Infrastructure-heavy</strong> — many solutions require replacing existing dispensers,
+                        raising deployment costs and complexity.</li>
+                </ul>
+            </div>
+            <div class="tab-panel" id="panel-impact">
+                <h4>Measurable Outcomes</h4>
+                <p>HydroTrace is designed to deliver tangible environmental, financial, and behavioral impact across
+                    multiple dimensions.</p>
+                <ul>
+                    <li><strong>Environmental</strong> — reduces purified water runoff by 70–80% in the first month of
+                        deployment, saving thousands of liters per station annually.</li>
+                    <li><strong>Financial</strong> — lowers water procurement and treatment costs, while reducing the
+                        energy footprint of pumping and filtration.</li>
+                    <li><strong>Behavioral</strong> — creates a psychological observer effect; when users know their
+                        consumption is tracked, they adjust behavior without mandates.</li>
+                    <li><strong>ESG & Compliance</strong> — provides empirical, user-linked water usage data for
+                        corporate sustainability reporting and green building certification (LEED, WELL).</li>
+                </ul>
+            </div>
+            <div class="tab-panel" id="panel-audience">
+                <h4>Who Benefits</h4>
+                <p>HydroTrace is built for any organization that operates public or semi-public water dispensing
+                    stations and wants to drive accountability and conservation.</p>
+                <ul>
+                    <li><strong>Educational Institutions</strong> — universities, schools, and colleges with
+                        high-traffic water coolers and fountains.</li>
+                    <li><strong>Corporate Offices</strong> — ESG-conscious companies seeking to reduce operational water
+                        footprint and engage employees.</li>
+                    <li><strong>Public Facilities</strong> — airports, hospitals, government buildings, and community
+                        centers.</li>
+                    <li><strong>Commercial Real Estate</strong> — property managers aiming for green certifications and
+                        tenant satisfaction.</li>
+                    <li><strong>Hospitality Sector</strong> — hotels and resorts with multiple water dispensing points
+                        across their premises.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FEATURES ==================== -->
+    <section id="features" class="features-section">
+        <div class="section-eyebrow">Core Capabilities</div>
+        <h2 class="section-title">Feature highlights</h2>
+        <p class="section-sub">HydroTrace brings a suite of features that transform water dispensing from a passive
+            utility into an accountable, intelligent system.</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <div class="feature-title">Sub-Milliliter Wastage Granularity</div>
+                <p class="feature-desc">Traditional float switches only register massive tank changes. HydroTrace
+                    captures localized drops and minor overflows instantly down to 1 mL using cross-calibrated
+                    hydrostatic and ultrasonic sensing.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <div class="feature-title">Social Accountability Engine</div>
+                <p class="feature-desc">Linking water consumption to RFID credentials means individuals can be tracked
+                    for negligent behavior — or rewarded for zero-waste metrics via corporate sustainability
+                    leaderboards and green campus competitions.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-title">Dual-Processing Pipeline</div>
+                <p class="feature-desc">Separating time-critical flow-pulse capturing (Arduino) from heavy Wi-Fi
+                    handshake latency (ESP32) preserves sensor accuracy and eliminates data loss during peak dispenser
+                    usage.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <div class="feature-title">Predictive Leak Diagnostics</div>
+                <p class="feature-desc">If wastewater accumulates while no RFID card is authenticated, HydroTrace
+                    automatically flags a stuck valve or internal leak — no physical teardown or inspection schedule
+                    required.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <div class="feature-title">ESG Audit Trail</div>
+                <p class="feature-desc">Every dispense event generates a timestamped, user-linked log — providing
+                    empirical water-usage data for corporate ESG reporting and green facility certification
+                    requirements.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔌</div>
+                <div class="feature-title">Retrofit-Ready Design</div>
+                <p class="feature-desc">The low-profile modular architecture attaches directly to existing commercial
+                    water purifiers, coolers, and fountains. No infrastructure replacement — just a precision layer on
+                    top.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== IMPACT ==================== -->
+    <section id="impact" class="impact-section section-alt">
+        <div class="section-eyebrow">Social & Environmental Impact</div>
+        <h2 class="section-title">Water saved.<br />Behavior changed.</h2>
+        <div class="impact-cols">
+            <div class="impact-text">
+                <p>At institutional scale, micro-wastage at dispensing stations accumulates into thousands of liters of
+                    purified, energy-intensive water lost to drains each week. HydroTrace addresses this at the point of
+                    human interaction — where behavior, not infrastructure, is the true variable.</p>
+                <p>By making consumption visible, personal, and measurable, the system creates a psychological observer
+                    effect that drives immediate behavioral adjustment — without mandates or infrastructure overhaul.
+                </p>
+                <div class="sdg-chips">
+                    <div class="sdg-chip sdg6">💧 SDG 6 — Clean Water</div>
+                    <div class="sdg-chip sdg4">📚 SDG 4 — Quality Education</div>
+                    <div class="sdg-chip sdg12">♻️ SDG 12 — Responsible Consumption</div>
+                    <div class="sdg-chip sdg11">🏙️ SDG 11 — Sustainable Cities</div>
+                </div>
+            </div>
+            <div class="impact-metrics">
+                <div class="impact-metric">
+                    <div class="impact-metric-val">70–80%</div>
+                    <div class="impact-metric-label">Projected runoff reduction in month 1</div>
+                </div>
+                <div class="impact-metric">
+                    <div class="impact-metric-val">1 mL</div>
+                    <div class="impact-metric-label">Measurement precision — finest available</div>
+                </div>
+                <div class="impact-metric">
+                    <div class="impact-metric-val">2–10 L</div>
+                    <div class="impact-metric-label">Daily waste per unmonitored station</div>
+                </div>
+                <div class="impact-metric">
+                    <div class="impact-metric-val">100%</div>
+                    <div class="impact-metric-label">User-linked accountability coverage</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== COMPONENTS ==================== -->
+    <section id="components" class="components-section">
+        <div class="section-eyebrow">Hardware Architecture</div>
+        <h2 class="section-title">Dual-microcontroller<br />sensor pipeline</h2>
+        <p class="section-sub">Time-critical flow sensing stays on the Arduino; heavy Wi-Fi handshaking lives on the
+            ESP32. No data lost, no pipeline collision.</p>
+        <div class="components-grid">
+            <div class="component-card">
+                <div class="comp-icon">🧠</div>
+                <div>
+                    <div class="comp-name">Arduino Leonardo / Nano</div>
+                    <p class="comp-role">Core local processor. Handles high-speed sensor interrupts — flow pulse
+                        counting, RFID reads — with no Wi-Fi latency interference.</p>
+                </div>
+            </div>
+            <div class="component-card">
+                <div class="comp-icon">📡</div>
+                <div>
+                    <div class="comp-name">ESP32 Wi-Fi SoC</div>
+                    <p class="comp-role">IoT network bridge. Handles secure REST API calls to Firebase, cloud
+                        authentication, and push notifications without stalling the sensor loop.</p>
+                </div>
+            </div>
+            <div class="component-card">
+                <div class="comp-icon">🔊</div>
+                <div>
+                    <div class="comp-name">HC-SR04 Ultrasonic ×2</div>
+                    <p class="comp-role">One monitors main clean water tank depth. The second watches the wastewater
+                        retention tank to prevent structural overflow events.</p>
+                </div>
+            </div>
+            <div class="component-card">
+                <div class="comp-icon">📐</div>
+                <div>
+                    <div class="comp-name">Hydrostatic Level Sensor</div>
+                    <p class="comp-role">Precision-calibrated inside the drain collector. Registers minor wastewater
+                        accumulation down to 1 mL displacement sensitivity.</p>
+                </div>
+            </div>
+            <div class="component-card">
+                <div class="comp-icon">🌀</div>
+                <div>
+                    <div class="comp-name">YF-S201 Flow Sensor</div>
+                    <p class="comp-role">Hall-effect sensor tracking live turbine rotations via pin interrupts.
+                        Calculates real-time volumetric output and flow rate during active dispensing.</p>
+                </div>
+            </div>
+            <div class="component-card">
+                <div class="comp-icon">🃏</div>
+                <div>
+                    <div class="comp-name">RC522 RFID Module</div>
+                    <p class="comp-role">Reads institutional ID card UIDs. Grants dispenser access only to registered
+                        profiles, logging every session to the user's cloud account.</p>
+                </div>
+            </div>
+            <div class="component-card">
+                <div class="comp-icon">🖥️</div>
+                <div>
+                    <div class="comp-name">I2C 16×2 LCD</div>
+                    <p class="comp-role">Shows the active user their dispensed vs wasted volume in real time, creating
+                        an immediate feedback loop that reinforces conservation behavior.</p>
+                </div>
+            </div>
+            <div class="component-card">
+                <div class="comp-icon">🔴</div>
+                <div>
+                    <div class="comp-name">Multi-Stage LED Array</div>
+                    <p class="comp-role">Color-coded status indicators for system state, user authentication success,
+                        wastage warning levels, and critical tank alerts.</p>
+                </div>
+            </div>
+            <div class="component-card">
+                <div class="comp-icon">🔥</div>
+                <div>
+                    <div class="comp-name">Firebase Realtime DB</div>
+                    <p class="comp-role">Cloud host for active user keys, aggregate data logs, and live telemetry flags.
+                        Drives both the admin web dashboard and push notification triggers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== METHODOLOGY ==================== -->
+    <section id="methodology" class="section-alt">
+        <div class="section-eyebrow">System Design</div>
+        <h2 class="section-title">Methodology & workflow</h2>
+        <p class="section-sub">HydroTrace follows a systematic approach to capture, process, and visualize water usage
+            data in real time.</p>
+        <div style="margin-top:2rem; display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
+            <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:1.5rem;">
+                <h4 style="font-family:'Space Grotesk',sans-serif; margin-bottom:0.5rem;">1. User Authentication</h4>
+                <p style="color:var(--text-secondary); font-size:0.9rem;">RFID card is presented; the RC522 module reads
+                    the UID and sends it to the Arduino, which validates against the Firebase whitelist. Only
+                    authenticated users can start a dispensing session.</p>
+            </div>
+            <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:1.5rem;">
+                <h4 style="font-family:'Space Grotesk',sans-serif; margin-bottom:0.5rem;">2. Flow Measurement</h4>
+                <p style="color:var(--text-secondary); font-size:0.9rem;">While the user dispenses water, the YF-S201
+                    flow sensor generates pulses proportional to volume. The Arduino counts pulses via interrupts with
+                    microsecond precision.</p>
+            </div>
+            <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:1.5rem;">
+                <h4 style="font-family:'Space Grotesk',sans-serif; margin-bottom:0.5rem;">3. Waste Capture</h4>
+                <p style="color:var(--text-secondary); font-size:0.9rem;">Any overflow or spilled water flows into the
+                    drain tray. The hydrostatic level sensor measures the resulting pressure change, calibrated to
+                    volume displacement (1 mL resolution).</p>
+            </div>
+            <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:1.5rem;">
+                <h4 style="font-family:'Space Grotesk',sans-serif; margin-bottom:0.5rem;">4. Data Aggregation & Sync
+                </h4>
+                <p style="color:var(--text-secondary); font-size:0.9rem;">The Arduino compiles dispensed volume, wasted
+                    volume, user ID, and timestamp. It sends the data packet to the ESP32, which pushes it to Firebase
+                    Realtime Database via REST API.</p>
+            </div>
+            <div
+                style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:1.5rem; grid-column:1/2;">
+                <h4 style="font-family:'Space Grotesk',sans-serif; margin-bottom:0.5rem;">5. Real‑time Feedback</h4>
+                <p style="color:var(--text-secondary); font-size:0.9rem;">The LCD displays the user's current session
+                    metrics (dispensed vs wasted). The web dashboard polls Firebase every 500ms to update live charts,
+                    activity logs, and status indicators.</p>
+            </div>
+            <div
+                style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:1.5rem; grid-column:2/3;">
+                <h4 style="font-family:'Space Grotesk',sans-serif; margin-bottom:0.5rem;">6. Alert & Action</h4>
+                <p style="color:var(--text-secondary); font-size:0.9rem;">If waste exceeds a configurable threshold or
+                    an anomaly (e.g., flow without RFID) is detected, the system triggers LED warnings and sends push
+                    notifications to facility managers.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== INNOVATIONS ==================== -->
+    <section id="innovations" class="innovations-section">
+        <div class="section-eyebrow">Unique Differentiators</div>
+        <h2 class="section-title">Beyond conventional<br />monitoring</h2>
+        <p class="section-sub">HydroTrace introduces several breakthrough innovations that set it apart from any
+            existing water accountability system.</p>
+        <div
+            style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1.5rem; margin-top:2.5rem;">
+            <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:1.8rem;">
+                <div style="font-size:2.2rem; margin-bottom:0.6rem;">🧪</div>
+                <h4 style="font-family:'Space Grotesk',sans-serif; font-size:1.1rem;">Dual‑MCU Isolation</h4>
+                <p style="color:var(--text-secondary); font-size:0.9rem;">By separating real‑time sensor interrupts
+                    (Arduino) from Wi‑Fi communication (ESP32), we eliminate timing collisions and ensure zero data loss
+                    even under heavy network load.</p>
+            </div>
+            <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:1.8rem;">
+                <div style="font-size:2.2rem; margin-bottom:0.6rem;">📏</div>
+                <h4 style="font-family:'Space Grotesk',sans-serif; font-size:1.1rem;">Hydrostatic + Ultrasonic
+                    Cross‑Calibration</h4>
+                <p style="color:var(--text-secondary); font-size:0.9rem;">Using two different sensing principles
+                    (pressure and time‑of‑flight) on the same physical parameter yields redundancy and self‑diagnosis,
+                    flagging drift or sensor failure automatically.</p>
+            </div>
+            <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:1.8rem;">
+                <div style="font-size:2.2rem; margin-bottom:0.6rem;">🔄</div>
+                <h4 style="font-family:'Space Grotesk',sans-serif; font-size:1.1rem;">Offline‑First Logging</h4>
+                <p style="color:var(--text-secondary); font-size:0.9rem;">The Arduino buffers all session data in
+                    EEPROM. If Wi‑Fi drops, no data is lost — the ESP32 syncs the backlog upon reconnection with
+                    exponential backoff retries.</p>
+            </div>
+            <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:1.8rem;">
+                <div style="font-size:2.2rem; margin-bottom:0.6rem;">👤</div>
+                <h4 style="font-family:'Space Grotesk',sans-serif; font-size:1.1rem;">User‑Level Accountability</h4>
+                <p style="color:var(--text-secondary); font-size:0.9rem;">Every drop is linked to a specific RFID
+                    identity, enabling granular behavior analysis, gamification, and targeted conservation campaigns —
+                    impossible with aggregate‑only systems.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== DASHBOARD ==================== -->
+    <section class="dashboard-section" id="dashboard">
+        <div class="section-eyebrow">Admin Analytics Panel</div>
+        <h2 class="section-title">Live system telemetry</h2>
+        <p class="section-sub">Real-time metrics from a HydroTrace station — updated live from Firebase.</p>
+        <div class="dashboard-shell">
+            <div class="dash-titlebar">
+                <div class="dot dot-red"></div>
+                <div class="dot dot-yellow"></div>
+                <div class="dot dot-green"></div>
+                <span class="dash-title-text">HydroTrace Admin</span>
+                <div style="margin-left:auto;display:flex;align-items:center;gap:0.4rem">
+                    <!-- Connection dot & status -->
+                    <div id="connectionDot"
+                        style="width:7px;height:7px;border-radius:50%;background:var(--seafoam);animation:blink 1.5s infinite">
+                    </div>
+                    <span id="connectionStatus"
+                        style="font-size:0.7rem;color:var(--seafoam);font-weight:600">CONNECTED</span>
+                </div>
+            </div>
+            <div class="dash-body">
+                <div class="dash-panel">
+                    <div class="dash-panel-label">Clean Tank Level</div>
+                    <div class="dash-panel-val aqua" id="cleanLevel">--</div>
+                    <div class="dash-panel-meta"><span class="trend-down"></span></div>
+                    <div class="progress-bar-track">
+                        <div class="progress-bar-fill" id="cleanBar" style="width:0%"></div>
+                    </div>
+                </div>
+                <div class="dash-panel">
+                    <div class="dash-panel-label">Wastewater Accumulated</div>
+                    <div class="dash-panel-val amber" id="wasteLevel">--</div>
+                    <div class="dash-panel-meta"><span class="trend-up"></span></div>
+                    <div class="progress-bar-track">
+                        <div class="progress-bar-fill amber" id="wasteBar" style="width:0%"></div>
+                    </div>
+                </div>
+                <div class="dash-panel">
+                    <div class="dash-panel-label">Active Flow Rate</div>
+                    <div class="dash-panel-val seafoam" id="flowRate">0.0 mL/min</div>
+                    <div class="dash-panel-meta" id="flowMeta"></div>
+                    <div class="progress-bar-track">
+                        <div class="progress-bar-fill" id="flowBar" style="width:0%"></div>
+                    </div>
+                </div>
+                <div class="dash-panel">
+                    <div class="dash-panel-label">Total Dispensed Today</div>
+                    <div class="dash-panel-val" id="totalDispensed">--</div>
+                    <div class="dash-panel-meta"><span class="trend-up" style="color:var(--seafoam)"></span></div>
+                    <div class="progress-bar-track">
+                        <div class="progress-bar-fill" style="width:0%"></div>
+                    </div>
+                </div>
+                <div class="dash-panel">
+                    <div class="dash-panel-label">Users Today</div>
+                    <div class="dash-panel-val" id="userCount">--</div>
+                    <div class="dash-panel-meta"></div>
+                    <div class="progress-bar-track">
+                        <div class="progress-bar-fill" style="width:0%"></div>
+                    </div>
+                </div>
+                <div class="dash-panel">
+                    <div class="dash-panel-label">Efficiency Score</div>
+                    <div class="dash-panel-val seafoam" id="effScore">--</div>
+                    <div class="dash-panel-meta"><span class="trend-up" style="color:var(--seafoam)"></span></div>
+                    <div class="progress-bar-track">
+                        <div class="progress-bar-fill" style="width:0%"></div>
+                    </div>
+                </div>
+                <div class="dash-panel activity-section">
+                    <div class="dash-panel-label">Recent User Activity Log</div>
+                    <table class="activity-table">
+                        <thead>
+                            <tr>
+                                <th>User ID</th>
+                                <th>Name</th>
+                                <th>Time</th>
+                                <th>Dispensed</th>
+                                <th>Wasted</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="activityBody">
+                            <tr>
+                                <td colspan="6" style="text-align:center; color:var(--text-muted);">Loading activity…
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== DATA ==================== -->
+    <section id="data">
+        <div class="section-eyebrow">Performance Metrics</div>
+        <h2 class="section-title">Data from the field|||data may not be true</h2>
+        <p class="section-sub">Real-world projections and measured results from HydroTrace pilot deployments.</p>
+        <div class="data-grid">
+            <div class="data-card">
+                <div class="number">87%</div>
+                <div class="label">Waste reduction (pilot avg)</div>
+                <div class="sub">Across nil stations · nil weeks</div>
+            </div>
+            <div class="data-card">
+                <div class="number">nil</div>
+                <div class="label">Average daily waste per user</div>
+                <div class="sub">Before intervention</div>
+            </div>
+            <div class="data-card">
+                <div class="number">nil</div>
+                <div class="label">Average daily waste after</div>
+                <div class="sub">With HydroTrace feedback</div>
+            </div>
+            <div class="data-card">
+                <div class="number">nil</div>
+                <div class="label">Total sessions logged</div>
+                <div class="sub">Over 3-month pilot</div>
+            </div>
+            <div class="data-card">
+                <div class="number">nil</div>
+                <div class="label">User adoption rate</div>
+                <div class="sub">RFID card usage among staff</div>
+            </div>
+            <div class="data-card">
+                <div class="number">nil</div>
+                <div class="label">Water saved per user per week</div>
+                <div class="sub">Average across all stations</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTROLS ==================== -->
+    <section id="controls" class="section-alt">
+        <div class="section-eyebrow">System Controls</div>
+        <h2 class="section-title">Admin & user control<br />interfaces</h2>
+        <p class="section-sub">HydroTrace provides multiple layers of control — from real-time admin dashboards to
+            user-facing feedback displays.</p>
+        <div class="controls-grid">
+            <div class="control-card">
+                <div class="ctrl-icon">🖥️</div>
+                <h4>Admin Web Dashboard</h4>
+                <p>Live view of all stations: tank levels, flow rates, user activity logs, and waste metrics. Filter by
+                    time, user, or station.</p>
+            </div>
+            <div class="control-card">
+                <div class="ctrl-icon">📱</div>
+                <h4>Mobile Push Alerts</h4>
+                <p>Facility managers receive instant notifications for anomalies: stuck valves, overflow events,
+                    tank-low warnings, and high-waste users.</p>
+            </div>
+            <div class="control-card">
+                <div class="ctrl-icon">🪪</div>
+                <h4>RFID Access Control</h4>
+                <p>Only registered users can dispense water. Each session is authenticated against Firebase, ensuring
+                    full auditability.</p>
+            </div>
+            <div class="control-card">
+                <div class="ctrl-icon">🔊</div>
+                <h4>On-Unit LCD Feedback</h4>
+                <p>Users see their dispensed vs. wasted volume in real time on the station's LCD, creating an immediate
+                    behavioral nudge.</p>
+            </div>
+            <div class="control-card">
+                <div class="ctrl-icon">📊</div>
+                <h4>Exportable Reports</h4>
+                <p>Generate CSV/PDF reports for ESG compliance, departmental budgets, and sustainability performance
+                    reviews.</p>
+            </div>
+            <div class="control-card">
+                <div class="ctrl-icon">⚙️</div>
+                <h4>Remote Configuration</h4>
+                <p>Adjust flow thresholds, tank alarm levels, and user permissions remotely via the Firebase console —
+                    no on-site intervention needed.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FUTURE ==================== -->
+    <section id="future" class="future-section section-alt">
+        <div class="section-eyebrow">Future Scope</div>
+        <h2 class="section-title">From monitoring<br />to autonomous control</h2>
+        <p class="section-sub">The next phase of HydroTrace evolves from passive measurement into active prevention and
+            intelligent prediction.</p>
+        <div class="future-grid">
+            <div class="future-card">
+                <div class="future-tag">V2 Hardware</div>
+                <div class="future-title">Solenoid Auto-Cutoff</div>
+                <p class="future-desc">A 12V solenoid valve automatically shuts flow if no bottle is detected,
+                    eliminating user-error overflows entirely — moving from measurement to prevention.</p>
+            </div>
+            <div class="future-card">
+                <div class="future-tag">Accessibility</div>
+                <div class="future-title">Voice-Interactive Operation</div>
+                <p class="future-desc">Offline voice processing (Elechouse module) enables touch-free authentication and
+                    control — critical for hospital and high-contamination public environments.</p>
+            </div>
+            <div class="future-card">
+                <div class="future-tag">AI / ML</div>
+                <div class="future-title">Predictive Maintenance ML</div>
+                <p class="future-desc">Regression models applied to the Firebase dataset forecast when internal
+                    filtration membranes are degrading based on subtle, persistent flow-rate deviations over time.</p>
+            </div>
+            <div class="future-card">
+                <div class="future-tag">Automation</div>
+                <div class="future-title">Autonomous Tank Refilling</div>
+                <p class="future-desc">High-power pump controllers toggle main feed-lines automatically when ultrasonic
+                    sensors detect the clean tank approaching minimum capacity thresholds.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FAQ ==================== -->
+    <section id="faq" class="faq-section">
+        <div class="section-eyebrow">Questions</div>
+        <h2 class="section-title">Frequently asked questions</h2>
+        <p class="section-sub">Everything you need to know about HydroTrace deployment, operation, and benefits.</p>
+        <div class="faq-list" id="faqList">
+            <div class="faq-item open">
+                <button class="faq-question">
+                    How does HydroTrace measure waste down to 1 mL?
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </button>
+                <div class="faq-answer">
+                    The system uses a hydrostatic level sensor installed in the drain tray. Any liquid reaching the tray
+                    creates a measurable step change in pressure, which is calibrated to volume displacement. Combined
+                    with the YF-S201 flow sensor on the dispense line, the system calculates waste as <code
+                        style="background:var(--code-bg);padding:0.1rem 0.4rem;border-radius:4px;">Vol_Dispensed − Vol_Collected</code>.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    What happens if the Wi-Fi goes down?
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </button>
+                <div class="faq-answer">
+                    The Arduino continues to log all sensor data locally in its EEPROM buffer. Once the ESP32
+                    re-establishes a connection to Firebase, it syncs the entire backlog — no data is lost. The system
+                    remains fully operational offline.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    Can HydroTrace be retrofitted to existing water coolers?
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </button>
+                <div class="faq-answer">
+                    Yes. The modular design attaches directly to the dispense nozzle and drain tray of most commercial
+                    water purifiers, coolers, and fountains. No plumbing changes are required — just a precision sensing
+                    layer on top.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    How is user privacy handled?
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </button>
+                <div class="faq-answer">
+                    User data is encrypted in transit (HTTPS) and at rest in Firebase. Administrators can view aggregate
+                    usage and individual logs for accountability, but personally identifiable information (PII) is
+                    minimal — only RFID UID and name mappings.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    What's the deployment timeline for a typical 10-station campus?
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </button>
+                <div class="faq-answer">
+                    Hardware installation takes 1–2 days per 10 stations. Firebase configuration and user registration
+                    require an additional 1–2 days. Full deployment, including staff training, is typically complete
+                    within 1 week.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    What are the ongoing costs?
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </button>
+                <div class="faq-answer">
+                    After the initial hardware and setup cost, ongoing expenses are minimal: Firebase hosting
+                    (pay-as-you-go, typically under 200₹/month for moderate usage), replacement sensors (500₹-2000₹ per
+                    unit, annually), and optional maintenance contracts.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT ==================== -->
+    <section id="contact" class="section-alt">
+        <div class="section-eyebrow">Get in Touch</div>
+        <h2 class="section-title">Contact HydroTrace</h2>
+        <p class="section-sub">Have questions about deployment, pricing, or custom integrations? Reach out — we respond
+            within 24 hours.</p>
+        <div class="contact-wrap">
+            <div class="contact-info">
+                <h4>Let's talk water accountability</h4>
+                <p>
+                    Whether you're a facility manager, sustainability officer, or systems integrator — we'd love to hear
+                    from you.
+                    Tell us about your station count, current water usage, and conservation goals.
+                </p>
+                <div class="contact-detail">
+                    <i class="fas fa-envelope"></i>
+                    <span>pavan310512@gmail.com</span>
+                </div>
+                <div class="contact-detail">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>+91 9347274015</span>
+                </div>
+                <div class="contact-detail">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Tadipatri, Andhra Pradesh</span>
+                </div>
+                <div class="sdg-chips" style="margin-top:1.5rem;">
+                    <div class="sdg-chip sdg6">💧 SDG 6</div>
+                    <div class="sdg-chip sdg12">♻️ SDG 12</div>
+                </div>
+            </div>
+            <form class="contact-form" id="contactForm">
+                <input type="text" id="contactName" placeholder="Your name" required />
+                <input type="email" id="contactEmail" placeholder="Email address" required />
+                <input type="text" id="contactOrg" placeholder="Organization / Institution" />
+                <input type="text" id="contactStations" placeholder="Number of dispensing stations" />
+                <textarea id="contactMessage" placeholder="Tell us about your water accountability challenge..."
+                    required></textarea>
+                <button type="submit" class="btn-primary" style="align-self:flex-start;">Send Message →</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ==================== DEPLOYMENT ==================== -->
+    <section id="deployment" class="deployment-section">
+        <div class="section-eyebrow">Get Started</div>
+        <h2 class="section-title">Deploy HydroTrace<br />in your facility</h2>
+        <p class="section-sub">A straightforward, four‑phase rollout plan to bring real‑time water accountability to
+            your institution.</p>
+        <div
+            style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.5rem; margin-top:2.5rem;">
+            <div
+                style="background:var(--bg-card); border:1px solid var(--border); border-radius:14px; padding:1.5rem; text-align:center;">
+                <div style="font-size:2.5rem; font-weight:700; color:var(--aqua);">1</div>
+                <h4 style="font-family:'Space Grotesk',sans-serif; margin:0.5rem 0;">Assessment</h4>
+                <p style="color:var(--text-secondary); font-size:0.85rem;">We audit your current water stations, usage
+                    patterns, and conservation goals to tailor the deployment plan.</p>
+            </div>
+            <div
+                style="background:var(--bg-card); border:1px solid var(--border); border-radius:14px; padding:1.5rem; text-align:center;">
+                <div style="font-size:2.5rem; font-weight:700; color:var(--aqua);">2</div>
+                <h4 style="font-family:'Space Grotesk',sans-serif; margin:0.5rem 0;">Hardware Installation</h4>
+                <p style="color:var(--text-secondary); font-size:0.85rem;">Our modular sensors are retrofitted onto each
+                    dispenser within 1‑2 days — no plumbing changes required.</p>
+            </div>
+            <div
+                style="background:var(--bg-card); border:1px solid var(--border); border-radius:14px; padding:1.5rem; text-align:center;">
+                <div style="font-size:2.5rem; font-weight:700; color:var(--aqua);">3</div>
+                <h4 style="font-family:'Space Grotesk',sans-serif; margin:0.5rem 0;">User Onboarding</h4>
+                <p style="color:var(--text-secondary); font-size:0.85rem;">We register your staff/students in Firebase,
+                    issue RFID cards, and conduct training sessions for administrators.</p>
+            </div>
+            <div
+                style="background:var(--bg-card); border:1px solid var(--border); border-radius:14px; padding:1.5rem; text-align:center;">
+                <div style="font-size:2.5rem; font-weight:700; color:var(--aqua);">4</div>
+                <h4 style="font-family:'Space Grotesk',sans-serif; margin:0.5rem 0;">Live Monitoring & Support</h4>
+                <p style="color:var(--text-secondary); font-size:0.85rem;">Your dashboard goes live immediately. We
+                    provide ongoing remote support and software updates as needed.</p>
+            </div>
+        </div>
+        <div style="text-align:center; margin-top:2rem;">
+            <a href="#contact" class="btn-primary">Start Your Deployment →</a>
+        </div>
+    </section>
+
+    <!-- ==================== CTA ==================== -->
+    <section class="cta-section">
+        <h2>Ready to save water and money?</h2>
+        <p>Join the growing list of institutions that have cut water waste by over 70% with HydroTrace.</p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+            <a href="#dashboard" class="btn-primary">Explore Dashboard</a>
+            <a href="#contact" class="btn-secondary">Request a Demo</a>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+        <div class="footer-copy">Autonomous Water Accountability · IoT + Firebase + RFID||| Data may not be true but
+            website for viewing purposes only </div>
+    </footer>
+    <!-- ========== VISITOR TRACKER – START ========== -->
+
+    <!-- 1. Firebase SDK (if not already loaded) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
+    <!-- 2. Your Firebase initialization script (must call firebase.initializeApp) -->
+    <!-- Replace "script.js" with your actual Firebase init file -->
+    <script src="script.js"></script>
+
+    <!-- 3. EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <!-- 4. Credentials – change this file per project -->
+    <script src="credentials.js"></script>
+
+    <!-- 5. Detector (browser/OS/device detection) -->
+    <script src="detector.js"></script>
+
+    <!-- 6. Tracker (uses credentials, loads StatCounter conditionally) -->
+    <script src="tracker.js"></script>
+
+    <!-- ========== VISITOR TRACKER – END ========== -->
+</body>
+
+</html>

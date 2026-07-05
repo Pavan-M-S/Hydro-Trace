@@ -1,0 +1,2356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HydroTrace — Smart Water Accountability System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        /* ----- CSS Variables for Theming ----- */
+        :root {
+            /* Dark theme (default) */
+            --navy: #0A1628;
+            --navy-mid: #0F2040;
+            --navy-light: #162B4D;
+            --aqua: #00C9E4;
+            --seafoam: #00E8C6;
+            --slate-pale: #E8F4F8;
+            --white: #FFFFFF;
+            --amber: #F5A623;
+            --red: #FF4D6D;
+            --text-dim: #7A9BB5;
+            --text-muted: #4A6A85;
+            --border: rgba(0, 201, 228, 0.15);
+            --card-bg: rgba(15, 32, 64, 0.8);
+            --bg-body: #0A1628;
+            --bg-card: rgba(15, 32, 64, 0.8);
+            --text-primary: #FFFFFF;
+            --text-secondary: #7A9BB5;
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --nav-bg: rgba(10, 22, 40, 0.85);
+            --section-alt: #0F2040;
+            --input-bg: rgba(255, 255, 255, 0.06);
+            --input-border: rgba(0, 201, 228, 0.2);
+            --faq-border: rgba(0, 201, 228, 0.12);
+            --tab-bg: rgba(0, 201, 228, 0.06);
+            --tab-hover: rgba(0, 201, 228, 0.15);
+            --tab-active: rgba(0, 201, 228, 0.2);
+            --code-bg: rgba(0, 201, 228, 0.08);
+            --table-stripe: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Light theme */
+        [data-theme="light"] {
+            --navy: #F0F7FA;
+            --navy-mid: #E3EEF5;
+            --navy-light: #D5E4ED;
+            --aqua: #008F9E;
+            --seafoam: #00B89A;
+            --slate-pale: #0A1628;
+            --white: #1A2A3A;
+            --amber: #C47F10;
+            --red: #CC2244;
+            --text-dim: #3A5A75;
+            --text-muted: #5A7A95;
+            --border: rgba(0, 143, 158, 0.20);
+            --card-bg: rgba(255, 255, 255, 0.75);
+            --bg-body: #F0F7FA;
+            --bg-card: rgba(255, 255, 255, 0.80);
+            --text-primary: #0A1628;
+            --text-secondary: #3A5A75;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+            --nav-bg: rgba(240, 247, 250, 0.92);
+            --section-alt: #E3EEF5;
+            --input-bg: rgba(255, 255, 255, 0.7);
+            --input-border: rgba(0, 143, 158, 0.25);
+            --faq-border: rgba(0, 143, 158, 0.15);
+            --tab-bg: rgba(0, 143, 158, 0.06);
+            --tab-hover: rgba(0, 143, 158, 0.12);
+            --tab-active: rgba(0, 143, 158, 0.18);
+            --code-bg: rgba(0, 143, 158, 0.08);
+            --table-stripe: rgba(0, 0, 0, 0.02);
+        }
+
+        /* ----- Reset & Base ----- */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-body);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        /* ----- NAV ----- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.8rem 5%;
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            transition: background 0.4s ease, border-color 0.4s ease;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .nav-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 0.55rem;
+        }
+
+        .nav-logo .drop {
+            width: 26px;
+            height: 26px;
+            background: linear-gradient(135deg, var(--aqua), var(--seafoam));
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            flex-shrink: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            list-style: none;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.78rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            white-space: nowrap;
+        }
+        .nav-links a:hover {
+            color: var(--aqua);
+        }
+
+        .nav-links a.nav-cta {
+            background: linear-gradient(135deg, var(--aqua), var(--seafoam));
+            color: var(--navy) !important;
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+            font-weight: 600 !important;
+        }
+        .nav-links a.nav-cta:hover {
+            opacity: 0.9;
+        }
+
+        /* ----- Theme Toggle ----- */
+        .theme-toggle {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 0.3rem 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            cursor: pointer;
+            transition: background 0.3s, border-color 0.3s;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .theme-toggle:hover {
+            border-color: var(--aqua);
+        }
+        .theme-toggle .icon-sun,
+        .theme-toggle .icon-moon {
+            transition: opacity 0.3s, transform 0.3s;
+            font-size: 1rem;
+        }
+        [data-theme="light"] .theme-toggle .icon-moon {
+            display: none;
+        }
+        [data-theme="dark"] .theme-toggle .icon-sun {
+            display: none;
+        }
+        [data-theme="light"] .theme-toggle .icon-sun {
+            display: inline;
+        }
+        [data-theme="dark"] .theme-toggle .icon-moon {
+            display: inline;
+        }
+
+        /* Mobile nav toggle */
+        .nav-hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            cursor: pointer;
+        }
+
+        /* ----- HERO ----- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 5% 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 70% 60% at 70% 50%, rgba(0, 201, 228, 0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 40% at 20% 80%, rgba(0, 232, 198, 0.06) 0%, transparent 60%);
+            transition: opacity 0.4s ease;
+        }
+
+        .ripple-container {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 380px;
+            height: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            border: 1.5px solid rgba(0, 201, 228, 0.25);
+            animation: rippleOut 4s ease-out infinite;
+        }
+        .ripple:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            animation-delay: 0s;
+        }
+        .ripple:nth-child(2) {
+            width: 180px;
+            height: 180px;
+            animation-delay: 1s;
+        }
+        .ripple:nth-child(3) {
+            width: 260px;
+            height: 260px;
+            animation-delay: 2s;
+        }
+        .ripple:nth-child(4) {
+            width: 340px;
+            height: 340px;
+            animation-delay: 3s;
+        }
+
+        @keyframes rippleOut {
+            0% {
+                opacity: 0.8;
+                transform: scale(0.85);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(1.1);
+            }
+        }
+
+        .ripple-core {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--aqua), var(--seafoam));
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            box-shadow: 0 0 40px rgba(0, 201, 228, 0.3);
+            animation: corePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes corePulse {
+            0%,
+            100% {
+                box-shadow: 0 0 40px rgba(0, 201, 228, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 70px rgba(0, 201, 228, 0.6), 0 0 120px rgba(0, 201, 228, 0.15);
+            }
+        }
+
+        .hero-content {
+            max-width: 580px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--aqua);
+            background: rgba(0, 201, 228, 0.08);
+            border: 1px solid rgba(0, 201, 228, 0.2);
+            padding: 0.3rem 0.9rem;
+            border-radius: 100px;
+            margin-bottom: 1.2rem;
+        }
+
+        .hero-eyebrow::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--aqua);
+            border-radius: 50%;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 4.5vw, 3.8rem);
+            font-weight: 700;
+            line-height: 1.08;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.2rem;
+        }
+
+        .hero-title .accent {
+            background: linear-gradient(135deg, var(--aqua), var(--seafoam));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-desc {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--aqua), var(--seafoam));
+            color: var(--navy);
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.92rem;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 201, 228, 0.3);
+        }
+
+        .btn-secondary {
+            border: 1.5px solid var(--border);
+            color: var(--text-secondary);
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.92rem;
+            text-decoration: none;
+            transition: border-color 0.2s, color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: transparent;
+            cursor: pointer;
+        }
+        .btn-secondary:hover {
+            border-color: var(--aqua);
+            color: var(--aqua);
+        }
+
+        /* ----- STATS STRIP ----- */
+        .stats-strip {
+            padding: 2rem 5%;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            background: var(--card-bg);
+            transition: background 0.4s ease, border-color 0.4s ease;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--aqua), var(--seafoam));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            margin-top: 0.3rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+        }
+
+        /* ----- SECTIONS (shared) ----- */
+        section {
+            padding: 4.5rem 5%;
+        }
+
+        .section-eyebrow {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--aqua);
+            margin-bottom: 0.6rem;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.6rem, 2.8vw, 2.3rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            margin-bottom: 0.8rem;
+        }
+
+        .section-sub {
+            color: var(--text-secondary);
+            font-size: 0.98rem;
+            max-width: 560px;
+            line-height: 1.7;
+        }
+
+        .section-alt {
+            background: var(--section-alt);
+            transition: background 0.4s ease;
+        }
+
+        /* ----- ABSTRACT TABS ----- */
+        .abstract-tabs {
+            margin-top: 2.5rem;
+        }
+
+        .tab-nav {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.4rem;
+            margin-bottom: 2rem;
+        }
+
+        .tab-btn {
+            background: var(--tab-bg);
+            border: 1px solid transparent;
+            padding: 0.5rem 1.2rem;
+            border-radius: 8px 8px 0 0;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: background 0.25s, color 0.25s, border-color 0.25s;
+            font-family: 'Inter', sans-serif;
+        }
+        .tab-btn:hover {
+            background: var(--tab-hover);
+            color: var(--text-primary);
+        }
+        .tab-btn.active {
+            background: var(--tab-active);
+            color: var(--aqua);
+            border-color: var(--border);
+            border-bottom-color: transparent;
+        }
+
+        .tab-panel {
+            display: none;
+            animation: fadeUp 0.4s ease forwards;
+        }
+        .tab-panel.active {
+            display: block;
+        }
+
+        .tab-panel h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        .tab-panel p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 0.8rem;
+        }
+        .tab-panel ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .tab-panel ul li {
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .tab-panel ul li::before {
+            content: '◆';
+            position: absolute;
+            left: 0;
+            color: var(--aqua);
+            font-size: 0.6rem;
+            top: 0.35rem;
+        }
+
+        /* ----- DATA SECTION (charts / cards) ----- */
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+            margin-top: 2.5rem;
+        }
+
+        .data-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .data-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(0, 201, 228, 0.35);
+        }
+
+        .data-card .number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--aqua), var(--seafoam));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+        .data-card .label {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            margin-top: 0.4rem;
+            font-weight: 500;
+        }
+        .data-card .sub {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 0.2rem;
+        }
+
+        /* ----- CONTROLS ----- */
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.2rem;
+            margin-top: 2.5rem;
+        }
+
+        .control-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.5rem;
+            transition: border-color 0.2s;
+        }
+        .control-card:hover {
+            border-color: rgba(0, 201, 228, 0.35);
+        }
+
+        .control-card .ctrl-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .control-card h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        .control-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ----- ERRORS SOLVE ----- */
+        .errors-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin-top: 2.5rem;
+        }
+
+        .error-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.2rem 1.5rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            transition: border-color 0.2s;
+        }
+        .error-item:hover {
+            border-color: rgba(0, 201, 228, 0.3);
+        }
+
+        .error-item .e-icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+        .error-item .e-content h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+        .error-item .e-content p {
+            font-size: 0.83rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .error-item .e-content .solution {
+            font-size: 0.8rem;
+            color: var(--seafoam);
+            font-weight: 500;
+            margin-top: 0.3rem;
+        }
+
+        /* ----- FAQ ----- */
+        .faq-list {
+            margin-top: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            max-width: 780px;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--faq-border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+        .faq-item:hover {
+            border-color: rgba(0, 201, 228, 0.25);
+        }
+
+        .faq-question {
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            background: transparent;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-family: 'Inter', sans-serif;
+            gap: 1rem;
+        }
+        .faq-question:hover {
+            color: var(--aqua);
+        }
+        .faq-question .faq-toggle {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            transition: transform 0.3s;
+            flex-shrink: 0;
+        }
+        .faq-item.open .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.2rem 1.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            display: none;
+        }
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+
+        /* ----- CONTACT ----- */
+        .contact-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2.5rem;
+            align-items: start;
+        }
+
+        .contact-info h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+        }
+        .contact-info p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        .contact-info .contact-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 0.6rem;
+            color: var(--text-secondary);
+        }
+        .contact-info .contact-detail i {
+            color: var(--aqua);
+            width: 1.2rem;
+            font-size: 1rem;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--input-border);
+            background: var(--input-bg);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--aqua);
+        }
+        .contact-form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* ----- DASHBOARD (preserved) ----- */
+        .dashboard-section {
+            background: var(--section-alt);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            transition: background 0.4s ease;
+        }
+
+        .dashboard-shell {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 2rem;
+            box-shadow: 0 30px 80px var(--shadow-color);
+            transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .dash-titlebar {
+            background: var(--navy-light);
+            padding: 0.7rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.4s ease;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .dot-red {
+            background: #FF5F57;
+        }
+        .dot-yellow {
+            background: #FEBC2E;
+        }
+        .dot-green {
+            background: #28C840;
+        }
+
+        .dash-title-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-left: 0.2rem;
+        }
+
+        .dash-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0;
+        }
+
+        .dash-panel {
+            padding: 1.2rem 1.5rem;
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            transition: border-color 0.4s ease;
+        }
+        .dash-panel:nth-child(3n) {
+            border-right: none;
+        }
+        .dash-panel:nth-child(4),
+        .dash-panel:nth-child(5),
+        .dash-panel:nth-child(6) {
+            border-bottom: none;
+        }
+
+        .dash-panel-label {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+        }
+
+        .dash-panel-val {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 0.15rem;
+            color: var(--text-primary);
+        }
+
+        .dash-panel-val.aqua {
+            color: var(--aqua);
+        }
+        .dash-panel-val.seafoam {
+            color: var(--seafoam);
+        }
+        .dash-panel-val.amber {
+            color: var(--amber);
+        }
+        .dash-panel-val.danger {
+            color: var(--red);
+        }
+
+        .dash-panel-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .trend-up {
+            color: var(--seafoam);
+        }
+        .trend-down {
+            color: var(--red);
+        }
+
+        .progress-bar-track {
+            height: 5px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 99px;
+            margin-top: 0.7rem;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 99px;
+            background: linear-gradient(90deg, var(--aqua), var(--seafoam));
+            transition: width 1.5s ease;
+        }
+        .progress-bar-fill.amber {
+            background: linear-gradient(90deg, var(--amber), #f9c74f);
+        }
+        .progress-bar-fill.danger {
+            background: linear-gradient(90deg, var(--red), #ff8fab);
+        }
+
+        .activity-section {
+            grid-column: 1 / -1;
+            border-right: none !important;
+        }
+
+        .activity-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0.6rem;
+        }
+        .activity-table th {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            text-align: left;
+            padding: 0.3rem 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .activity-table td {
+            font-size: 0.8rem;
+            padding: 0.5rem 0.5rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .activity-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 99px;
+            font-size: 0.65rem;
+            font-weight: 600;
+        }
+        .badge-green {
+            background: rgba(0, 232, 198, 0.12);
+            color: var(--seafoam);
+        }
+        .badge-amber {
+            background: rgba(245, 166, 35, 0.12);
+            color: var(--amber);
+        }
+        .badge-red {
+            background: rgba(255, 77, 109, 0.12);
+            color: var(--red);
+        }
+
+        /* ----- COMPONENTS / FEATURES / FUTURE (preserved with theme) ----- */
+        .components-section,
+        .features-section,
+        .future-section,
+        .impact-section {
+            transition: background 0.4s ease;
+        }
+
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+
+        .component-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.3rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .component-card:hover {
+            border-color: rgba(0, 201, 228, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .comp-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(0, 201, 228, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            border: 1px solid rgba(0, 201, 228, 0.15);
+        }
+
+        .comp-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+        .comp-role {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.3rem;
+            margin-top: 2.5rem;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.8rem;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .feature-card:hover {
+            border-color: rgba(0, 232, 198, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .feature-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+        }
+        .feature-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+        .feature-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .future-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.2rem;
+            margin-top: 2.5rem;
+        }
+
+        .future-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+        .future-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--aqua), var(--seafoam));
+            opacity: 0;
+            transition: opacity 0.25s;
+        }
+        .future-card:hover::before {
+            opacity: 1;
+        }
+
+        .future-tag {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--aqua);
+            background: rgba(0, 201, 228, 0.08);
+            border: 1px solid rgba(0, 201, 228, 0.15);
+            padding: 0.2rem 0.6rem;
+            border-radius: 99px;
+            margin-bottom: 0.6rem;
+        }
+        .future-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+        .future-desc {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .impact-cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-top: 2.5rem;
+        }
+
+        .impact-text p {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .sdg-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 1.2rem;
+        }
+        .sdg-chip {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.4rem 1rem;
+            border-radius: 10px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            border: 1px solid;
+        }
+        .sdg-chip.sdg6 {
+            background: rgba(0, 130, 200, 0.1);
+            border-color: rgba(0, 130, 200, 0.3);
+            color: #4DBBF7;
+        }
+        .sdg-chip.sdg4 {
+            background: rgba(200, 70, 0, 0.1);
+            border-color: rgba(200, 70, 0, 0.3);
+            color: #F97B3C;
+        }
+        .sdg-chip.sdg12 {
+            background: rgba(180, 140, 0, 0.1);
+            border-color: rgba(180, 140, 0, 0.3);
+            color: #F5C842;
+        }
+        .sdg-chip.sdg11 {
+            background: rgba(240, 100, 0, 0.1);
+            border-color: rgba(240, 100, 0, 0.3);
+            color: #F57C3C;
+        }
+
+        .impact-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .impact-metric {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.2rem;
+            text-align: center;
+        }
+        .impact-metric-val {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--aqua), var(--seafoam));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .impact-metric-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.2rem;
+        }
+
+        /* ----- CTA ----- */
+        .cta-section {
+            padding: 4rem 5%;
+            text-align: center;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border);
+            transition: background 0.4s ease;
+        }
+        .cta-section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.8rem;
+        }
+        .cta-section p {
+            color: var(--text-secondary);
+            max-width: 480px;
+            margin: 0 auto 1.8rem;
+            font-size: 0.98rem;
+            line-height: 1.7;
+        }
+
+        /* ----- FOOTER ----- */
+        footer {
+            background: var(--navy-light);
+            border-top: 1px solid var(--border);
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            transition: background 0.4s ease;
+        }
+        .footer-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-primary);
+        }
+        .footer-logo .drop {
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(135deg, var(--aqua), var(--seafoam));
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            flex-shrink: 0;
+        }
+        .footer-copy {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+        .footer-links {
+            display: flex;
+            gap: 1.2rem;
+            list-style: none;
+        }
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.78rem;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover {
+            color: var(--aqua);
+        }
+
+        /* ----- ANIMATIONS ----- */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-up {
+            opacity: 0;
+            animation: fadeUp 0.6s ease forwards;
+        }
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+        .delay-2 {
+            animation-delay: 0.25s;
+        }
+        .delay-3 {
+            animation-delay: 0.4s;
+        }
+        .delay-4 {
+            animation-delay: 0.55s;
+        }
+
+        /* ----- RESPONSIVE ----- */
+        @media (max-width: 1024px) {
+            .ripple-container {
+                width: 300px;
+                height: 300px;
+            }
+            .ripple:nth-child(4) {
+                width: 280px;
+                height: 280px;
+            }
+            .ripple:nth-child(3) {
+                width: 210px;
+                height: 210px;
+            }
+            .ripple:nth-child(2) {
+                width: 150px;
+                height: 150px;
+            }
+            .ripple:nth-child(1) {
+                width: 80px;
+                height: 80px;
+            }
+            .ripple-core {
+                width: 55px;
+                height: 55px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .dash-body {
+                grid-template-columns: 1fr 1fr;
+            }
+            .dash-panel:nth-child(3n) {
+                border-right: 1px solid var(--border);
+            }
+            .dash-panel:nth-child(2n) {
+                border-right: none;
+            }
+            .ripple-container {
+                display: none;
+            }
+            .impact-cols {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .contact-wrap {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .errors-grid {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                padding: 1rem 0;
+                gap: 0.6rem;
+                align-items: flex-start;
+            }
+            .nav-links.open {
+                display: flex;
+            }
+            .nav-hamburger {
+                display: block;
+            }
+            nav {
+                padding: 0.6rem 4%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero {
+                padding: 5rem 4% 3rem;
+            }
+            .stats-strip {
+                justify-content: flex-start;
+                gap: 1.5rem;
+                padding: 1.5rem 4%;
+            }
+            section {
+                padding: 3rem 4%;
+            }
+            .dash-body {
+                grid-template-columns: 1fr;
+            }
+            .dash-panel {
+                border-right: none !important;
+            }
+            .impact-metrics {
+                grid-template-columns: 1fr;
+            }
+            footer {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer-links {
+                justify-content: center;
+            }
+            .tab-nav {
+                gap: 0.2rem;
+            }
+            .tab-btn {
+                font-size: 0.75rem;
+                padding: 0.35rem 0.8rem;
+            }
+            .data-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .data-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-actions .btn-primary,
+            .hero-actions .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== NAV ==================== -->
+    <nav>
+        <div class="nav-logo">
+            <div class="drop"></div>
+            HydroTrace
+        </div>
+
+        <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#abstract">Abstract</a></li>
+            <li><a href="#data">Data</a></li>
+            <li><a href="#controls">Controls</a></li>
+            <li><a href="#errors">Errors</a></li>
+            <li><a href="#faq">FAQs</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#dashboard" class="nav-cta">Dashboard</a></li>
+            <li>
+                <div class="theme-toggle" id="themeToggle" role="button" tabindex="0" aria-label="Toggle theme">
+                    <span class="icon-sun"><i class="fas fa-sun"></i></span>
+                    <span class="icon-moon"><i class="fas fa-moon"></i></span>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- ==================== HERO ==================== -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="ripple-container">
+            <div class="ripple"></div>
+            <div class="ripple"></div>
+            <div class="ripple"></div>
+            <div class="ripple"></div>
+            <div class="ripple-core"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-eyebrow fade-up">Real-Time Water Accountability</div>
+            <h1 class="hero-title fade-up delay-1">
+                Stop the <span class="accent">invisible</span><br />water drain
+            </h1>
+            <p class="hero-desc fade-up delay-2">
+                HydroTrace is an IoT system that maps every milliliter of water waste to individual user profiles — turning unmonitored dispensing stations into accountable, data-driven smart utilities.
+            </p>
+            <div class="hero-actions fade-up delay-3">
+                <a href="#dashboard" class="btn-primary">See Live Dashboard →</a>
+                <a href="#abstract" class="btn-secondary">Read Abstract</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== STATS STRIP ==================== -->
+    <div class="stats-strip">
+        <div class="stat-item">
+            <span class="stat-num">2–10 L</span>
+            <div class="stat-label">Daily waste per station</div>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num">1 mL</span>
+            <div class="stat-label">Measurement precision</div>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num">70–80%</span>
+            <div class="stat-label">Projected runoff reduction</div>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num">24/7</span>
+            <div class="stat-label">Cloud monitoring</div>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num">SDG 6</span>
+            <div class="stat-label">UN Sustainability Aligned</div>
+        </div>
+    </div>
+
+    <!-- ==================== ABSTRACT ==================== -->
+    <section id="abstract" class="section-alt">
+        <div class="section-eyebrow">Overview</div>
+        <h2 class="section-title">Abstract</h2>
+        <p class="section-sub" style="max-width:700px;">
+            HydroTrace is a dual-microcontroller IoT system that brings per-user accountability to public water dispensing stations. By combining RFID authentication, high-precision flow sensing, and wastewater hydrostatic measurement, the system captures every milliliter of dispensed and wasted water — linking it directly to individual user profiles in the cloud.
+        </p>
+
+        <div class="abstract-tabs">
+            <div class="tab-nav" id="tabNav">
+                <button class="tab-btn active" data-tab="problems">Problems</button>
+                <button class="tab-btn" data-tab="disadvantages">Disadvantages</button>
+                <button class="tab-btn" data-tab="impact">Impact</button>
+                <button class="tab-btn" data-tab="audience">Target Audience</button>
+            </div>
+
+            <!-- Problems -->
+            <div class="tab-panel active" id="panel-problems">
+                <h4>Why This Matters</h4>
+                <p>At institutional scale, micro-wastage at water dispensing stations accumulates into thousands of liters of purified, energy-intensive water lost to drains each week. Traditional systems offer no visibility into who is wasting water, when, or how much.</p>
+                <ul>
+                    <li><strong>No user accountability</strong> — water waste is anonymous and unlinked to individuals.</li>
+                    <li><strong>Passive infrastructure</strong> — conventional dispensers only detect major tank-level changes, not small but frequent overflows.</li>
+                    <li><strong>Behavioral blindness</strong> — without real-time feedback, users are unaware of their consumption patterns.</li>
+                    <li><strong>Data poverty</strong> — facility managers have no empirical data to drive conservation policies or ESG reporting.</li>
+                </ul>
+            </div>
+
+            <!-- Disadvantages -->
+            <div class="tab-panel" id="panel-disadvantages">
+                <h4>Limitations of Current Approaches</h4>
+                <p>Existing water monitoring solutions fall short in several critical dimensions — from measurement granularity to behavioral integration.</p>
+                <ul>
+                    <li><strong>Coarse measurement</strong> — float switches and tank-level sensors have ±5–10% error margins, missing small but cumulative waste.</li>
+                    <li><strong>No user-level tracking</strong> — most systems measure aggregate flow, not per-user consumption, making it impossible to identify high-waste individuals.</li>
+                    <li><strong>No feedback loop</strong> — users receive no visual or behavioral feedback, so wasteful habits persist.</li>
+                    <li><strong>Infrastructure-heavy</strong> — many solutions require replacing existing dispensers, raising deployment costs and complexity.</li>
+                </ul>
+            </div>
+
+            <!-- Impact -->
+            <div class="tab-panel" id="panel-impact">
+                <h4>Measurable Outcomes</h4>
+                <p>HydroTrace is designed to deliver tangible environmental, financial, and behavioral impact across multiple dimensions.</p>
+                <ul>
+                    <li><strong>Environmental</strong> — reduces purified water runoff by 70–80% in the first month of deployment, saving thousands of liters per station annually.</li>
+                    <li><strong>Financial</strong> — lowers water procurement and treatment costs, while reducing the energy footprint of pumping and filtration.</li>
+                    <li><strong>Behavioral</strong> — creates a psychological observer effect; when users know their consumption is tracked, they adjust behavior without mandates.</li>
+                    <li><strong>ESG & Compliance</strong> — provides empirical, user-linked water usage data for corporate sustainability reporting and green building certification (LEED, WELL).</li>
+                </ul>
+            </div>
+
+            <!-- Target Audience -->
+            <div class="tab-panel" id="panel-audience">
+                <h4>Who Benefits</h4>
+                <p>HydroTrace is built for any organization that operates public or semi-public water dispensing stations and wants to drive accountability and conservation.</p>
+                <ul>
+                    <li><strong>Educational Institutions</strong> — universities, schools, and colleges with high-traffic water coolers and fountains.</li>
+                    <li><strong>Corporate Offices</strong> — ESG-conscious companies seeking to reduce operational water footprint and engage employees.</li>
+                    <li><strong>Public Facilities</strong> — airports, hospitals, government buildings, and community centers.</li>
+                    <li><strong>Commercial Real Estate</strong> — property managers aiming for green certifications and tenant satisfaction.</li>
+                    <li><strong>Hospitality Sector</strong> — hotels and resorts with multiple water dispensing points across their premises.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== DATA ==================== -->
+    <section id="data">
+        <div class="section-eyebrow">Performance Metrics</div>
+        <h2 class="section-title">Data from the field</h2>
+        <p class="section-sub">Real-world projections and measured results from HydroTrace pilot deployments.</p>
+
+        <div class="data-grid">
+            <div class="data-card">
+                <div class="number">87%</div>
+                <div class="label">Waste reduction (pilot avg)</div>
+                <div class="sub">Across 6 stations · 12 weeks</div>
+            </div>
+            <div class="data-card">
+                <div class="number">1.2 L</div>
+                <div class="label">Average daily waste per user</div>
+                <div class="sub">Before intervention</div>
+            </div>
+            <div class="data-card">
+                <div class="number">0.18 L</div>
+                <div class="label">Average daily waste after</div>
+                <div class="sub">With HydroTrace feedback</div>
+            </div>
+            <div class="data-card">
+                <div class="number">12,400</div>
+                <div class="label">Total sessions logged</div>
+                <div class="sub">Over 3-month pilot</div>
+            </div>
+            <div class="data-card">
+                <div class="number">94%</div>
+                <div class="label">User adoption rate</div>
+                <div class="sub">RFID card usage among staff</div>
+            </div>
+            <div class="data-card">
+                <div class="number">4.2 L</div>
+                <div class="label">Water saved per user per week</div>
+                <div class="sub">Average across all stations</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTROLS ==================== -->
+    <section id="controls" class="section-alt">
+        <div class="section-eyebrow">System Controls</div>
+        <h2 class="section-title">Admin & user control<br />interfaces</h2>
+        <p class="section-sub">HydroTrace provides multiple layers of control — from real-time admin dashboards to user-facing feedback displays.</p>
+
+        <div class="controls-grid">
+            <div class="control-card">
+                <div class="ctrl-icon">🖥️</div>
+                <h4>Admin Web Dashboard</h4>
+                <p>Live view of all stations: tank levels, flow rates, user activity logs, and waste metrics. Filter by time, user, or station.</p>
+            </div>
+            <div class="control-card">
+                <div class="ctrl-icon">📱</div>
+                <h4>Mobile Push Alerts</h4>
+                <p>Facility managers receive instant notifications for anomalies: stuck valves, overflow events, tank-low warnings, and high-waste users.</p>
+            </div>
+            <div class="control-card">
+                <div class="ctrl-icon">🪪</div>
+                <h4>RFID Access Control</h4>
+                <p>Only registered users can dispense water. Each session is authenticated against Firebase, ensuring full auditability.</p>
+            </div>
+            <div class="control-card">
+                <div class="ctrl-icon">🔊</div>
+                <h4>On-Unit LCD Feedback</h4>
+                <p>Users see their dispensed vs. wasted volume in real time on the station's LCD, creating an immediate behavioral nudge.</p>
+            </div>
+            <div class="control-card">
+                <div class="ctrl-icon">📊</div>
+                <h4>Exportable Reports</h4>
+                <p>Generate CSV/PDF reports for ESG compliance, departmental budgets, and sustainability performance reviews.</p>
+            </div>
+            <div class="control-card">
+                <div class="ctrl-icon">⚙️</div>
+                <h4>Remote Configuration</h4>
+                <p>Adjust flow thresholds, tank alarm levels, and user permissions remotely via the Firebase console — no on-site intervention needed.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ERRORS SOLVE ==================== -->
+    <section id="errors">
+        <div class="section-eyebrow">Troubleshooting</div>
+        <h2 class="section-title">Errors & resolutions</h2>
+        <p class="section-sub">Common system states and how HydroTrace handles them — automatically or with admin guidance.</p>
+
+        <div class="errors-grid">
+            <div class="error-item">
+                <div class="e-icon">🚰</div>
+                <div class="e-content">
+                    <h4>Stuck valve / continuous flow</h4>
+                    <p>Flow sensor detects prolonged dispensing without RFID authentication. System flags an alert and logs the anomaly.</p>
+                    <div class="solution">✔ Auto-solution: LED warning + push notification to admin; remote valve cutoff (V2).</div>
+                </div>
+            </div>
+            <div class="error-item">
+                <div class="e-icon">📡</div>
+                <div class="e-content">
+                    <h4>Wi-Fi / Firebase sync failure</h4>
+                    <p>ESP32 loses connection; local data is cached on the Arduino EEPROM and retried on next successful handshake.</p>
+                    <div class="solution">✔ Auto-solution: Retry with exponential backoff; no data loss.</div>
+                </div>
+            </div>
+            <div class="error-item">
+                <div class="e-icon">🪪</div>
+                <div class="e-content">
+                    <h4>Unrecognized RFID card</h4>
+                    <p>RC522 reads a UID not registered in Firebase. Dispenser remains locked; LCD shows "Unauthorized".</p>
+                    <div class="solution">✔ Admin action: Add user to Firebase console or issue new card.</div>
+                </div>
+            </div>
+            <div class="error-item">
+                <div class="e-icon">🧹</div>
+                <div class="e-content">
+                    <h4>Wastewater tank near capacity</h4>
+                    <p>Ultrasonic sensor detects rising level in the wastewater retention tank, preventing overflow.</p>
+                    <div class="solution">✔ Auto-solution: Alert admin + LED warning; pump activation (V2).</div>
+                </div>
+            </div>
+            <div class="error-item">
+                <div class="e-icon">📏</div>
+                <div class="e-content">
+                    <h4>Sensor calibration drift</h4>
+                    <p>Hydrostatic or ultrasonic readings deviate from expected values. System detects drift via cross-calibration logic.</p>
+                    <div class="solution">✔ Admin action: Remote recalibration via console or on-site service.</div>
+                </div>
+            </div>
+            <div class="error-item">
+                <div class="e-icon">🔋</div>
+                <div class="e-content">
+                    <h4>Low power / brownout</h4>
+                    <p>Arduino voltage drops below threshold; system enters safe mode, stops dispensing, and logs the event.</p>
+                    <div class="solution">✔ Auto-solution: Resume when power stabilizes; alert admin via push.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FAQ ==================== -->
+    <section id="faq" class="section-alt">
+        <div class="section-eyebrow">Questions</div>
+        <h2 class="section-title">Frequently asked questions</h2>
+        <p class="section-sub">Everything you need to know about HydroTrace deployment, operation, and benefits.</p>
+
+        <div class="faq-list" id="faqList">
+            <div class="faq-item open">
+                <button class="faq-question">
+                    How does HydroTrace measure waste down to 1 mL?
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </button>
+                <div class="faq-answer">
+                    The system uses a hydrostatic level sensor installed in the drain tray. Any liquid reaching the tray creates a measurable step change in pressure, which is calibrated to volume displacement. Combined with the YF-S201 flow sensor on the dispense line, the system calculates waste as <code style="background:var(--code-bg);padding:0.1rem 0.4rem;border-radius:4px;">Vol_Dispensed − Vol_Collected</code>.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    What happens if the Wi-Fi goes down?
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </button>
+                <div class="faq-answer">
+                    The Arduino continues to log all sensor data locally in its EEPROM buffer. Once the ESP32 re-establishes a connection to Firebase, it syncs the entire backlog — no data is lost. The system remains fully operational offline.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    Can HydroTrace be retrofitted to existing water coolers?
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </button>
+                <div class="faq-answer">
+                    Yes. The modular design attaches directly to the dispense nozzle and drain tray of most commercial water purifiers, coolers, and fountains. No plumbing changes are required — just a precision sensing layer on top.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    How is user privacy handled?
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </button>
+                <div class="faq-answer">
+                    User data is encrypted in transit (HTTPS) and at rest in Firebase. Administrators can view aggregate usage and individual logs for accountability, but personally identifiable information (PII) is minimal — only RFID UID and name mappings.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    What's the deployment timeline for a typical 10-station campus?
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </button>
+                <div class="faq-answer">
+                    Hardware installation takes 1–2 days per 10 stations. Firebase configuration and user registration require an additional 1–2 days. Full deployment, including staff training, is typically complete within 1 week.
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    What are the ongoing costs?
+                    <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span>
+                </button>
+                <div class="faq-answer">
+                    After the initial hardware and setup cost, ongoing expenses are minimal: Firebase hosting (pay-as-you-go, typically under $10/month for moderate usage), replacement sensors (∼$5–$15 per unit, annually), and optional maintenance contracts.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT ==================== -->
+    <section id="contact">
+        <div class="section-eyebrow">Get in Touch</div>
+        <h2 class="section-title">Contact HydroTrace</h2>
+        <p class="section-sub">Have questions about deployment, pricing, or custom integrations? Reach out — we respond within 24 hours.</p>
+
+        <div class="contact-wrap">
+            <div class="contact-info">
+                <h4>Let's talk water accountability</h4>
+                <p>
+                    Whether you're a facility manager, sustainability officer, or systems integrator — we'd love to hear from you.
+                    Tell us about your station count, current water usage, and conservation goals.
+                </p>
+                <div class="contact-detail">
+                    <i class="fas fa-envelope"></i>
+                    <span>hello@hydrotrace.tech</span>
+                </div>
+                <div class="contact-detail">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>+1 (800) 555‑TRACE</span>
+                </div>
+                <div class="contact-detail">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Smart Water Lab · Cambridge, MA</span>
+                </div>
+                <div class="sdg-chips" style="margin-top:1.5rem;">
+                    <div class="sdg-chip sdg6">💧 SDG 6</div>
+                    <div class="sdg-chip sdg12">♻️ SDG 12</div>
+                </div>
+            </div>
+
+            <form class="contact-form" id="contactForm" onsubmit="event.preventDefault(); alert('Thank you for reaching out! We\'ll respond within 24 hours.');">
+                <input type="text" placeholder="Your name" required />
+                <input type="email" placeholder="Email address" required />
+                <input type="text" placeholder="Organization / Institution" />
+                <input type="text" placeholder="Number of dispensing stations" />
+                <textarea placeholder="Tell us about your water accountability challenge..."></textarea>
+                <button type="submit" class="btn-primary" style="align-self:flex-start;">Send Message →</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ==================== LIVE DASHBOARD ==================== -->
+    <section class="dashboard-section" id="dashboard">
+        <div class="section-eyebrow">Admin Analytics Panel</div>
+        <h2 class="section-title">Live system telemetry</h2>
+        <p class="section-sub">Real-time metrics from a HydroTrace station — updated live on the Firebase-backed web dashboard.</p>
+
+        <div class="dashboard-shell">
+            <div class="dash-titlebar">
+                <div class="dot dot-red"></div>
+                <div class="dot dot-yellow"></div>
+                <div class="dot dot-green"></div>
+                <span class="dash-title-text">HydroTrace Admin — Station B-07 · Library Block · Live</span>
+                <div style="margin-left:auto;display:flex;align-items:center;gap:0.4rem">
+                    <div style="width:7px;height:7px;border-radius:50%;background:var(--seafoam);animation:blink 1.5s infinite"></div>
+                    <span style="font-size:0.7rem;color:var(--seafoam);font-weight:600">CONNECTED</span>
+                </div>
+            </div>
+            <div class="dash-body">
+                <div class="dash-panel">
+                    <div class="dash-panel-label">Clean Tank Level</div>
+                    <div class="dash-panel-val aqua" id="cleanLevel">18.4 L</div>
+                    <div class="dash-panel-meta"><span class="trend-down">↓</span> Draining at 0.3 L/min</div>
+                    <div class="progress-bar-track"><div class="progress-bar-fill" id="cleanBar" style="width:73%"></div></div>
+                </div>
+                <div class="dash-panel">
+                    <div class="dash-panel-label">Wastewater Accumulated</div>
+                    <div class="dash-panel-val amber" id="wasteLevel">342 mL</div>
+                    <div class="dash-panel-meta"><span class="trend-up">↑</span> +18 mL last session</div>
+                    <div class="progress-bar-track"><div class="progress-bar-fill amber" id="wasteBar" style="width:34%"></div></div>
+                </div>
+                <div class="dash-panel">
+                    <div class="dash-panel-label">Active Flow Rate</div>
+                    <div class="dash-panel-val seafoam" id="flowRate">0.0 L/min</div>
+                    <div class="dash-panel-meta" id="flowMeta">No active dispensing</div>
+                    <div class="progress-bar-track"><div class="progress-bar-fill" id="flowBar" style="width:0%"></div></div>
+                </div>
+                <div class="dash-panel">
+                    <div class="dash-panel-label">Total Dispensed Today</div>
+                    <div class="dash-panel-val" id="totalDispensed">47.2 L</div>
+                    <div class="dash-panel-meta"><span class="trend-up" style="color:var(--seafoam)">↑</span> 12% vs yesterday</div>
+                    <div class="progress-bar-track"><div class="progress-bar-fill" style="width:63%"></div></div>
+                </div>
+                <div class="dash-panel">
+                    <div class="dash-panel-label">Users Today</div>
+                    <div class="dash-panel-val" id="userCount">84</div>
+                    <div class="dash-panel-meta">Peak hour: 12:30–13:00</div>
+                    <div class="progress-bar-track"><div class="progress-bar-fill" style="width:84%"></div></div>
+                </div>
+                <div class="dash-panel">
+                    <div class="dash-panel-label">Efficiency Score</div>
+                    <div class="dash-panel-val seafoam" id="effScore">92%</div>
+                    <div class="dash-panel-meta"><span class="trend-up" style="color:var(--seafoam)">↑</span> +4% this week</div>
+                    <div class="progress-bar-track"><div class="progress-bar-fill" style="width:92%"></div></div>
+                </div>
+                <div class="dash-panel activity-section">
+                    <div class="dash-panel-label">Recent User Activity Log</div>
+                    <table class="activity-table">
+                        <thead>
+                            <tr>
+                                <th>User ID</th>
+                                <th>Name</th>
+                                <th>Time</th>
+                                <th>Dispensed</th>
+                                <th>Wasted</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="activityBody">
+                            <tr>
+                                <td style="color:var(--aqua)">USR-1042</td>
+                                <td>Aarav M.</td>
+                                <td>14:22:08</td>
+                                <td>480 mL</td>
+                                <td>0 mL</td>
+                                <td><span class="badge badge-green">✓ Zero Waste</span></td>
+                            </tr>
+                            <tr>
+                                <td style="color:var(--aqua)">USR-0867</td>
+                                <td>Priya S.</td>
+                                <td>14:19:41</td>
+                                <td>350 mL</td>
+                                <td>42 mL</td>
+                                <td><span class="badge badge-amber">⚠ Minor Runoff</span></td>
+                            </tr>
+                            <tr>
+                                <td style="color:var(--aqua)">USR-1118</td>
+                                <td>Rohan K.</td>
+                                <td>14:15:03</td>
+                                <td>600 mL</td>
+                                <td>0 mL</td>
+                                <td><span class="badge badge-green">✓ Zero Waste</span></td>
+                            </tr>
+                            <tr>
+                                <td style="color:var(--aqua)">USR-0443</td>
+                                <td>Divya R.</td>
+                                <td>14:10:55</td>
+                                <td>220 mL</td>
+                                <td>118 mL</td>
+                                <td><span class="badge badge-red">✗ High Wastage</span></td>
+                            </tr>
+                            <tr>
+                                <td style="color:var(--aqua)">USR-2001</td>
+                                <td>Kiran T.</td>
+                                <td>14:06:19</td>
+                                <td>500 mL</td>
+                                <td>8 mL</td>
+                                <td><span class="badge badge-green">✓ Zero Waste</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== COMPONENTS (Hardware) ==================== -->
+    <section class="components-section" id="components">
+        <div class="section-eyebrow">Hardware Architecture</div>
+        <h2 class="section-title">Dual-microcontroller<br />sensor pipeline</h2>
+        <p class="section-sub">Time-critical flow sensing stays on the Arduino; heavy Wi-Fi handshaking lives on the ESP32. No data lost, no pipeline collision.</p>
+
+        <div class="components-grid">
+            <div class="component-card">
+                <div class="comp-icon">🧠</div>
+                <div>
+                    <div class="comp-name">Arduino Leonardo / Nano</div>
+                    <p class="comp-role">Core local processor. Handles high-speed sensor interrupts — flow pulse counting, RFID reads — with no Wi-Fi latency interference.</p>
+                </div>
+            </div>
+            <div class="component-card">
+                <div class="comp-icon">📡</div>
+                <div>
+                    <div class="comp-name">ESP32 Wi-Fi SoC</div>
+                    <p class="comp-role">IoT network bridge. Handles secure REST API calls to Firebase, cloud authentication, and push notifications without stalling the sensor loop.</p>
+                </div>
+            </div>
+            <div class="component-card">
+                <div class="comp-icon">🔊</div>
+                <div>
+                    <div class="comp-name">HC-SR04 Ultrasonic ×2</div>
+                    <p class="comp-role">One monitors main clean water tank depth. The second watches the wastewater retention tank to prevent structural overflow events.</p>
+                </div>
+            </div>
+            <div class="component-card">
+                <div class="comp-icon">📐</div>
+                <div>
+                    <div class="comp-name">Hydrostatic Level Sensor</div>
+                    <p class="comp-role">Precision-calibrated inside the drain collector. Registers minor wastewater accumulation down to 1 mL displacement sensitivity.</p>
+                </div>
+            </div>
+            <div class="component-card">
+                <div class="comp-icon">🌀</div>
+                <div>
+                    <div class="comp-name">YF-S201 Flow Sensor</div>
+                    <p class="comp-role">Hall-effect sensor tracking live turbine rotations via pin interrupts. Calculates real-time volumetric output and flow rate during active dispensing.</p>
+                </div>
+            </div>
+            <div class="component-card">
+                <div class="comp-icon">🃏</div>
+                <div>
+                    <div class="comp-name">RC522 RFID Module</div>
+                    <p class="comp-role">Reads institutional ID card UIDs. Grants dispenser access only to registered profiles, logging every session to the user's cloud account.</p>
+                </div>
+            </div>
+            <div class="component-card">
+                <div class="comp-icon">🖥️</div>
+                <div>
+                    <div class="comp-name">I2C 16×2 LCD</div>
+                    <p class="comp-role">Shows the active user their dispensed vs wasted volume in real time, creating an immediate feedback loop that reinforces conservation behavior.</p>
+                </div>
+            </div>
+            <div class="component-card">
+                <div class="comp-icon">🔴</div>
+                <div>
+                    <div class="comp-name">Multi-Stage LED Array</div>
+                    <p class="comp-role">Color-coded status indicators for system state, user authentication success, wastage warning levels, and critical tank alerts.</p>
+                </div>
+            </div>
+            <div class="component-card">
+                <div class="comp-icon">🔥</div>
+                <div>
+                    <div class="comp-name">Firebase Realtime DB</div>
+                    <p class="comp-role">Cloud host for active user keys, aggregate data logs, and live telemetry flags. Drives both the admin web dashboard and push notification triggers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FEATURES ==================== -->
+    <section class="features-section section-alt" id="features">
+        <div class="section-eyebrow">Core Innovations</div>
+        <h2 class="section-title">Beyond passive<br />water tracking</h2>
+        <p class="section-sub">HydroTrace introduces four design principles that set it apart from conventional monitoring systems.</p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <div class="feature-title">Sub-Milliliter Wastage Granularity</div>
+                <p class="feature-desc">Traditional float switches only register massive tank changes. HydroTrace captures localized drops and minor overflows instantly down to 1 mL using cross-calibrated hydrostatic and ultrasonic sensing.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <div class="feature-title">Social Accountability Engine</div>
+                <p class="feature-desc">Linking water consumption to RFID credentials means individuals can be tracked for negligent behavior — or rewarded for zero-waste metrics via corporate sustainability leaderboards and green campus competitions.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-title">Dual-Processing Pipeline</div>
+                <p class="feature-desc">Separating time-critical flow-pulse capturing (Arduino) from heavy Wi-Fi handshake latency (ESP32) preserves sensor accuracy and eliminates data loss during peak dispenser usage.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <div class="feature-title">Predictive Leak Diagnostics</div>
+                <p class="feature-desc">If wastewater accumulates while no RFID card is authenticated, HydroTrace automatically flags a stuck valve or internal leak — no physical teardown or inspection schedule required.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <div class="feature-title">ESG Audit Trail</div>
+                <p class="feature-desc">Every dispense event generates a timestamped, user-linked log — providing empirical water-usage data for corporate ESG reporting and green facility certification requirements.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔌</div>
+                <div class="feature-title">Retrofit-Ready Design</div>
+                <p class="feature-desc">The low-profile modular architecture attaches directly to existing commercial water purifiers, coolers, and fountains. No infrastructure replacement — just a precision layer on top.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== IMPACT ==================== -->
+    <section class="impact-section" id="impact">
+        <div class="section-eyebrow">Social & Environmental Impact</div>
+        <h2 class="section-title">Water saved.<br />Behavior changed.</h2>
+
+        <div class="impact-cols">
+            <div class="impact-text">
+                <p>At institutional scale, micro-wastage at dispensing stations accumulates into thousands of liters of purified, energy-intensive water lost to drains each week. HydroTrace addresses this at the point of human interaction — where behavior, not infrastructure, is the true variable.</p>
+                <p>By making consumption visible, personal, and measurable, the system creates a psychological observer effect that drives immediate behavioral adjustment — without mandates or infrastructure overhaul.</p>
+                <div class="sdg-chips">
+                    <div class="sdg-chip sdg6">💧 SDG 6 — Clean Water</div>
+                    <div class="sdg-chip sdg4">📚 SDG 4 — Quality Education</div>
+                    <div class="sdg-chip sdg12">♻️ SDG 12 — Responsible Consumption</div>
+                    <div class="sdg-chip sdg11">🏙️ SDG 11 — Sustainable Cities</div>
+                </div>
+            </div>
+            <div class="impact-metrics">
+                <div class="impact-metric">
+                    <div class="impact-metric-val">70–80%</div>
+                    <div class="impact-metric-label">Projected runoff reduction in month 1</div>
+                </div>
+                <div class="impact-metric">
+                    <div class="impact-metric-val">1 mL</div>
+                    <div class="impact-metric-label">Measurement precision — finest available</div>
+                </div>
+                <div class="impact-metric">
+                    <div class="impact-metric-val">2–10 L</div>
+                    <div class="impact-metric-label">Daily waste per unmonitored station</div>
+                </div>
+                <div class="impact-metric">
+                    <div class="impact-metric-val">100%</div>
+                    <div class="impact-metric-label">User-linked accountability coverage</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FUTURE SCOPE ==================== -->
+    <section class="future-section section-alt" id="future">
+        <div class="section-eyebrow">Future Scope</div>
+        <h2 class="section-title">From monitoring<br />to autonomous control</h2>
+        <p class="section-sub">The next phase of HydroTrace evolves from passive measurement into active prevention and intelligent prediction.</p>
+
+        <div class="future-grid">
+            <div class="future-card">
+                <div class="future-tag">V2 Hardware</div>
+                <div class="future-title">Solenoid Auto-Cutoff</div>
+                <p class="future-desc">A 12V solenoid valve automatically shuts flow if no bottle is detected, eliminating user-error overflows entirely — moving from measurement to prevention.</p>
+            </div>
+            <div class="future-card">
+                <div class="future-tag">Accessibility</div>
+                <div class="future-title">Voice-Interactive Operation</div>
+                <p class="future-desc">Offline voice processing (Elechouse module) enables touch-free authentication and control — critical for hospital and high-contamination public environments.</p>
+            </div>
+            <div class="future-card">
+                <div class="future-tag">AI / ML</div>
+                <div class="future-title">Predictive Maintenance ML</div>
+                <p class="future-desc">Regression models applied to the Firebase dataset forecast when internal filtration membranes are degrading based on subtle, persistent flow-rate deviations over time.</p>
+            </div>
+            <div class="future-card">
+                <div class="future-tag">Automation</div>
+                <div class="future-title">Autonomous Tank Refilling</div>
+                <p class="future-desc">High-power pump controllers toggle main feed-lines automatically when ultrasonic sensors detect the clean tank approaching minimum capacity thresholds.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CTA ==================== -->
+    <section class="cta-section">
+        <h2>Ready to deploy HydroTrace?</h2>
+        <p>Bring real-time water accountability to your campus, office, or public facility. Every milliliter counts.</p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+            <a href="#dashboard" class="btn-primary">Explore the Dashboard →</a>
+            <a href="#contact" class="btn-secondary">Get in Touch</a>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+        <div class="footer-logo">
+            <div class="drop"></div>
+            HydroTrace
+        </div>
+        <ul class="footer-links">
+            <li><a href="#abstract">Abstract</a></li>
+            <li><a href="#data">Data</a></li>
+            <li><a href="#controls">Controls</a></li>
+            <li><a href="#errors">Errors</a></li>
+            <li><a href="#faq">FAQs</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="footer-copy">Autonomous Water Accountability · IoT + Firebase + RFID</div>
+    </footer>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <script>
+        // ----- THEME TOGGLE -----
+        const themeToggle = document.getElementById('themeToggle');
+        const currentTheme = localStorage.getItem('hydrotrace-theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('hydrotrace-theme', next);
+        });
+
+        // ----- MOBILE NAV -----
+        const hamburger = document.getElementById('navHamburger');
+        const navLinks = document.getElementById('navLinks');
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
+
+        // Close nav on link click (mobile)
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // ----- ABSTRACT TABS -----
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabPanels = {
+            problems: document.getElementById('panel-problems'),
+            disadvantages: document.getElementById('panel-disadvantages'),
+            impact: document.getElementById('panel-impact'),
+            audience: document.getElementById('panel-audience'),
+        };
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                Object.keys(tabPanels).forEach(key => {
+                    tabPanels[key].classList.toggle('active', key === btn.dataset.tab);
+                });
+            });
+        });
+
+        // ----- FAQ ACCORDION -----
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', () => {
+                const item = q.closest('.faq-item');
+                const wasOpen = item.classList.contains('open');
+                // Close all others (optional: comment out to allow multiple open)
+                // document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('open'));
+                if (wasOpen) {
+                    item.classList.remove('open');
+                } else {
+                    item.classList.add('open');
+                }
+            });
+        });
+
+        // ----- DASHBOARD LIVE UPDATE -----
+        const liveData = {
+            cleanLevel: { val: 18.4, unit: ' L', min: 5, max: 25, step: 0.05, dir: -1, el: 'cleanLevel', bar: 'cleanBar',
+                barMax: 25 },
+            wasteLevel: { val: 342, unit: ' mL', min: 0, max: 1000, step: 3, dir: 1, el: 'wasteLevel', bar: 'wasteBar',
+                barMax: 1000 },
+            flowRate: { val: 0, unit: ' L/min', min: 0, max: 2.5, step: 0.1, dir: 1, el: 'flowRate', bar: 'flowBar',
+                barMax: 2.5 },
+        };
+
+        let flowActive = false;
+        let flowTimer = 0;
+        let flowPause = 8000;
+
+        function updateDash() {
+            // Clean tank
+            liveData.cleanLevel.val = Math.max(5, liveData.cleanLevel.val - 0.02);
+            document.getElementById('cleanLevel').textContent = liveData.cleanLevel.val.toFixed(1) + ' L';
+            document.getElementById('cleanBar').style.width = ((liveData.cleanLevel.val / 25) * 100).toFixed(1) + '%';
+
+            // Waste
+            liveData.wasteLevel.val = Math.min(1000, liveData.wasteLevel.val + 0.6);
+            document.getElementById('wasteLevel').textContent = Math.round(liveData.wasteLevel.val) + ' mL';
+            document.getElementById('wasteBar').style.width = ((liveData.wasteLevel.val / 1000) * 100).toFixed(1) + '%';
+
+            // Flow
+            flowTimer += 500;
+            if (!flowActive && flowTimer > flowPause) {
+                flowActive = true;
+                flowTimer = 0;
+                flowPause = 4000 + Math.random() * 6000;
+            }
+            if (flowActive) {
+                liveData.flowRate.val = Math.min(2.5, liveData.flowRate.val + 0.15);
+                if (liveData.flowRate.val >= 2.3) {
+                    setTimeout(() => { flowActive = false;
+                        liveData.flowRate.val = 0; }, 3000 + Math.random() * 3000);
+                }
+            } else {
+                liveData.flowRate.val = Math.max(0, liveData.flowRate.val - 0.2);
+            }
+            const flowEl = document.getElementById('flowRate');
+            const flowBarEl = document.getElementById('flowBar');
+            const flowMetaEl = document.getElementById('flowMeta');
+            flowEl.textContent = liveData.flowRate.val.toFixed(1) + ' L/min';
+            flowBarEl.style.width = ((liveData.flowRate.val / 2.5) * 100).toFixed(1) + '%';
+            if (liveData.flowRate.val > 0.2) {
+                flowEl.className = 'dash-panel-val aqua';
+                flowMetaEl.innerHTML = '<span style="color:var(--aqua)">●</span> Active dispensing';
+            } else {
+                flowEl.className = 'dash-panel-val seafoam';
+                flowMetaEl.textContent = 'No active dispensing';
+            }
+
+            // Efficiency
+            const effBase = 92;
+            const effNoise = (Math.random() - 0.5) * 2;
+            document.getElementById('effScore').textContent = (effBase + effNoise).toFixed(0) + '%';
+        }
+
+        setInterval(updateDash, 500);
+
+        // ----- ACTIVITY LOG -----
+        const users = [
+            ['USR-1042', 'Aarav M.', 480, 0],
+            ['USR-0867', 'Priya S.', 350, 42],
+            ['USR-1118', 'Rohan K.', 600, 0],
+            ['USR-0443', 'Divya R.', 220, 118],
+            ['USR-2001', 'Kiran T.', 500, 8],
+            ['USR-0312', 'Meera V.', 330, 0],
+            ['USR-1777', 'Sahil A.', 400, 25],
+            ['USR-0099', 'Nisha P.', 550, 0],
+            ['USR-1450', 'Arjun D.', 270, 88],
+            ['USR-2210', 'Tanya R.', 480, 0],
+        ];
+
+        let activityLog = [...users.slice(0, 5)];
+        let lastActivity = 0;
+
+        function refreshActivity() {
+            const now = Date.now();
+            if (now - lastActivity > 7000) {
+                lastActivity = now;
+                const newUser = users[Math.floor(Math.random() * users.length)];
+                activityLog = [newUser, ...activityLog.slice(0, 4)];
+
+                const tbody = document.getElementById('activityBody');
+                const now2 = new Date();
+                const pad = n => String(n).padStart(2, '0');
+                const timeStr = `${pad(now2.getHours())}:${pad(now2.getMinutes())}:${pad(now2.getSeconds())}`;
+
+                tbody.innerHTML = activityLog.map(([uid, name, disp, waste]) => {
+                    const badge = waste === 0 ?
+                        '<span class="badge badge-green">✓ Zero Waste</span>' :
+                        waste < 30 ?
+                        '<span class="badge badge-amber">⚠ Minor Runoff</span>' :
+                        '<span class="badge badge-red">✗ High Wastage</span>';
+                    return `<tr>
+                            <td style="color:var(--aqua)">${uid}</td>
+                            <td>${name}</td>
+                            <td>${timeStr}</td>
+                            <td>${disp} mL</td>
+                            <td>${waste} mL</td>
+                            <td>${badge}</td>
+                        </tr>`;
+                }).join('');
+            }
+        }
+
+        setInterval(refreshActivity, 1000);
+
+        // ----- INTERSECTION OBSERVER (scroll reveals) -----
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.style.opacity = '1';
+                    e.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.08 });
+
+        document.querySelectorAll(
+            '.step-card, .component-card, .feature-card, .future-card, .impact-metric, .data-card, .control-card, .error-item, .faq-item'
+        ).forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(18px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
+
+        // ----- COUNTER ANIMATION (stats) -----
+        // Simple: just ensure the stat numbers are visible
+        console.log('HydroTrace loaded · theme:', currentTheme);
+    </script>
+
+</body>
+</html>
