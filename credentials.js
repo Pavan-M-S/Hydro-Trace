@@ -7,7 +7,7 @@ window.TRACKER_CONFIG = {
     project: 'hydrotrace',
 
     // EmailJS – set sendEmail: false to disable emails
-    sendEmail: true,
+    sendEmail: false,
     emailjsPublicKey: 'Lm0xRXQfM_1D_Ixjg',
     emailjsServiceId: 'service_4ijc7zv',
     emailjsTemplateId: 'template_ywkznzc',   // HydroTrace template
