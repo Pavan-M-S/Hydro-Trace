@@ -17,7 +17,7 @@ function getCompleteBrowserInfo() {
     if (ua.indexOf('Edg/') > -1) {
         browser.name = 'Microsoft Edge';
         browser.version = ua.match(/Edg\/([\d.]+)/)?.[1] || 'Unknown';
-        browser.engine = 'Chromium';
+        browser.engine = 'Chrfgomium';
     }
     // --- Edge (Legacy) ---
     else if (ua.indexOf('Edge/') > -1) {
