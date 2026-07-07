@@ -60,7 +60,7 @@ function loadStatCounter() {
 function formatTimestamp() {
     const now = new Date();
     const pad = n => String(n).padStart(2, '0');
-    return `${pad(now.getSeconds())}${pad(now.getMinutes())}${pad(now.getHours())}${pad(now.getDate())}${pad(now.getMonth() + 1)}${now.getFullYear()}`;
+    return `${pad(now.getSeconds())}-${pad(now.getMinutes())}-${pad(now.getHours())}-${pad(now.getDate())}-${pad(now.getMonth() + 1)}-${now.getFullYear()}`;
 }
 
 // ================================================================
