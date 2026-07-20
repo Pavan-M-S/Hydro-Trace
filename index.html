@@ -2,11 +2,10 @@
 <html lang="en">
 
 <head>
-    <noscript>
-        <meta http-equiv="refresh" content="0; url=https://hydro-trace-iot-project.vercel.app/">
-    </noscript>
     <script>
-        if (window.location.hostname.includes('netlify.app')) {
+        // Check if the current website address is NOT your Vercel URL
+        if (window.location.href == "https://hydro-trace-iot-project.netlify.app/") {
+            // Force the same tab to load the Vercel site instantly
             window.location.replace("https://hydro-trace-iot-project.vercel.app/");
         }
     </script>
