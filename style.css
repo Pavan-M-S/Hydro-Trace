@@ -1,33 +1,33 @@
 /* ----- CSS Variables for Theming ----- */
 :root {
-    /* Dark theme (Google AI Studio / Premium vibe) */
-    --navy: #000000;
-    --navy-mid: #0A0A0A;
-    --navy-light: #141414;
-    --aqua: #8AB4F8;
-    --seafoam: #C58AF9;
+    /* Dark theme (Premium Blue) */
+    --navy: #0A1628;
+    --navy-mid: #0F2040;
+    --navy-light: #162B4D;
+    --aqua: #00C9E4;
+    --seafoam: #00E8C6;
     --slate-pale: #E8F4F8;
     --white: #FFFFFF;
-    --amber: #FDD663;
-    --red: #F28B82;
-    --text-dim: #9AA0A6;
-    --text-muted: #80868B;
-    --border: rgba(255, 255, 255, 0.12);
-    --card-bg: rgba(255, 255, 255, 0.03);
-    --bg-body: #000000;
-    --bg-card: rgba(255, 255, 255, 0.02);
-    --text-primary: #E8EAED;
-    --text-secondary: #9AA0A6;
-    --shadow-color: rgba(0, 0, 0, 0.8);
-    --nav-bg: rgba(0, 0, 0, 0.7);
-    --section-alt: #050505;
-    --input-bg: rgba(255, 255, 255, 0.04);
-    --input-border: rgba(255, 255, 255, 0.1);
-    --faq-border: rgba(255, 255, 255, 0.08);
-    --tab-bg: rgba(255, 255, 255, 0.03);
-    --tab-hover: rgba(255, 255, 255, 0.06);
-    --tab-active: rgba(255, 255, 255, 0.1);
-    --code-bg: rgba(255, 255, 255, 0.08);
+    --amber: #F5A623;
+    --red: #FF4D6D;
+    --text-dim: #7A9BB5;
+    --text-muted: #4A6A85;
+    --border: rgba(0, 201, 228, 0.15);
+    --card-bg: rgba(15, 32, 64, 0.8);
+    --bg-body: #0A1628;
+    --bg-card: rgba(15, 32, 64, 0.8);
+    --text-primary: #FFFFFF;
+    --text-secondary: #7A9BB5;
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    --nav-bg: rgba(10, 22, 40, 0.85);
+    --section-alt: #0F2040;
+    --input-bg: rgba(255, 255, 255, 0.06);
+    --input-border: rgba(0, 201, 228, 0.2);
+    --faq-border: rgba(0, 201, 228, 0.12);
+    --tab-bg: rgba(0, 201, 228, 0.06);
+    --tab-hover: rgba(0, 201, 228, 0.15);
+    --tab-active: rgba(0, 201, 228, 0.2);
+    --code-bg: rgba(0, 201, 228, 0.08);
     --table-stripe: rgba(255, 255, 255, 0.02);
 }
 
@@ -118,7 +118,7 @@ nav {
 .nav-logo .drop {
     width: 26px;
     height: 26px;
-    background: linear-gradient(135deg, #8AB4F8, #C58AF9, #F28B82);
+    background: linear-gradient(135deg, var(--aqua), var(--seafoam));
     border-radius: 50% 50% 50% 0;
     transform: rotate(-45deg);
     flex-shrink: 0;
@@ -156,7 +156,7 @@ nav {
 }
 
 .nav-links a.nav-cta {
-    background: linear-gradient(135deg, #8AB4F8, #C58AF9, #F28B82);
+    background: linear-gradient(135deg, var(--aqua), var(--seafoam));
     color: var(--navy) !important;
     padding: 0.4rem 1rem;
     border-radius: 6px;
@@ -287,14 +287,14 @@ nav {
 .hero-bg::before {
     width: 60vw;
     height: 60vw;
-    background: radial-gradient(circle, rgba(138,180,248,0.15) 0%, rgba(0,0,0,0) 70%);
+    background: radial-gradient(circle, rgba(0,201,228,0.15) 0%, rgba(0,0,0,0) 70%);
     top: -10vw;
     left: -10vw;
 }
 .hero-bg::after {
     width: 50vw;
     height: 50vw;
-    background: radial-gradient(circle, rgba(197,138,249,0.15) 0%, rgba(0,0,0,0) 70%);
+    background: radial-gradient(circle, rgba(0,232,198,0.15) 0%, rgba(0,0,0,0) 70%);
     bottom: -10vw;
     right: -10vw;
     animation-delay: -10s;
@@ -360,7 +360,7 @@ nav {
 .ripple-core {
     width: 70px;
     height: 70px;
-    background: linear-gradient(135deg, #8AB4F8, #C58AF9, #F28B82);
+    background: linear-gradient(135deg, var(--aqua), var(--seafoam));
     border-radius: 50% 50% 50% 0;
     transform: rotate(-45deg);
     box-shadow: 0 0 40px rgba(0, 201, 228, 0.3);
@@ -428,7 +428,7 @@ nav {
 }
 
 .hero-title .accent {
-    background: linear-gradient(135deg, #8AB4F8, #C58AF9, #F28B82);
+    background: linear-gradient(135deg, var(--aqua), var(--seafoam));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -449,7 +449,7 @@ nav {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #8AB4F8, #C58AF9, #F28B82);
+    background: linear-gradient(135deg, var(--aqua), var(--seafoam));
     color: var(--navy);
     padding: 0.8rem 1.8rem;
     border-radius: 100px;
@@ -465,7 +465,7 @@ nav {
 }
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(138, 180, 248, 0.4);
+    box-shadow: 0 8px 30px rgba(0, 201, 228, 0.4);
 }
 
 .btn-secondary {
@@ -509,7 +509,7 @@ nav {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 2rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #8AB4F8, #C58AF9, #F28B82);
+    background: linear-gradient(135deg, var(--aqua), var(--seafoam));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -669,7 +669,7 @@ section {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 2.6rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #8AB4F8, #C58AF9, #F28B82);
+    background: linear-gradient(135deg, var(--aqua), var(--seafoam));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1045,7 +1045,7 @@ section {
 .progress-bar-fill {
     height: 100%;
     border-radius: 99px;
-    background: linear-gradient(90deg, #8AB4F8, #C58AF9);
+    background: linear-gradient(90deg, var(--aqua), var(--seafoam));
     transition: width 1.5s ease;
 }
 .progress-bar-fill.amber {
@@ -1247,7 +1247,7 @@ section {
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #8AB4F8, #C58AF9);
+    background: linear-gradient(90deg, var(--aqua), var(--seafoam));
     opacity: 0;
     transition: opacity 0.25s;
 }
@@ -1360,7 +1360,7 @@ section {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 1.6rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #8AB4F8, #C58AF9, #F28B82);
+    background: linear-gradient(135deg, var(--aqua), var(--seafoam));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1418,7 +1418,7 @@ footer {
 .footer-logo .drop {
     width: 18px;
     height: 18px;
-    background: linear-gradient(135deg, #8AB4F8, #C58AF9, #F28B82);
+    background: linear-gradient(135deg, var(--aqua), var(--seafoam));
     border-radius: 50% 50% 50% 0;
     transform: rotate(-45deg);
     flex-shrink: 0;
@@ -1655,7 +1655,7 @@ footer {
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(600px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(255, 255, 255, 0.08), transparent 40%);
+    background: radial-gradient(600px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(0, 201, 228, 0.12), transparent 40%);
     opacity: 0;
     transition: opacity 0.3s;
     pointer-events: none;
@@ -1671,6 +1671,6 @@ footer {
 
 /* ----- SELECTION ----- */
 ::selection {
-    background: rgba(138, 180, 248, 0.3);
+    background: rgba(0, 201, 228, 0.3);
     color: var(--white);
 }
